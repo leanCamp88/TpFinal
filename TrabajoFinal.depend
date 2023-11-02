@@ -1,0 +1,54 @@
+# depslib dependency file v1.0
+1698607049 source:c:\users\leandro\desktop\tec. en programacion\programacion y laboratorio 2\trabajo final\trabajofinal\libreriampacient.c
+	"Pacientes.h"
+	"libreriaMPacient.h"
+	"libreriaArchivo.h"
+	<stdio.h>
+	<stdlib.h>
+	<malloc.h>
+	<string.h>
+
+1698707882 c:\users\leandro\desktop\tec. en programacion\programacion y laboratorio 2\trabajo final\trabajofinal\pacientes.h
+	"Pacientes.h"
+	"libreriaMPacient.h"
+	<stdio.h>
+	<stdlib.h>
+	<malloc.h>
+	<string.h>
+
+1698598244 c:\users\leandro\desktop\tec. en programacion\programacion y laboratorio 2\trabajo final\trabajofinal\libreriampacient.h
+	"Pacientes.h"
+	"libreriaMPacient.h"
+	<stdio.h>
+	<stdlib.h>
+	<malloc.h>
+	<string.h>
+
+1698593710 source:c:\users\leandro\desktop\tec. en programacion\programacion y laboratorio 2\trabajo final\trabajofinal\main.c
+	"Pacientes.h"
+	"libreriaMPacient.h"
+	<stdio.h>
+	<stdlib.h>
+	<malloc.h>
+	<string.h>
+
+1698705850 source:c:\users\leandro\desktop\tec. en programacion\programacion y laboratorio 2\trabajo final\trabajofinal\pacientes.c
+	"Pacientes.h"
+	"libreriaMPacient.h"
+	"libreriaArchivo.h"
+	<stdio.h>
+	<stdlib.h>
+	<malloc.h>
+	<string.h>
+
+1698704888 source:c:\users\leandro\desktop\tec. en programacion\programacion y laboratorio 2\trabajo final\trabajofinal\libreriaarchivo.c
+	"Pacientes.h"
+	"libreriaMPacient.h"
+	"libreriaArchivo.h"
+	<stdio.h>
+	<stdlib.h>
+	<malloc.h>
+	<string.h>
+
+1698704873 c:\users\leandro\desktop\tec. en programacion\programacion y laboratorio 2\trabajo final\trabajofinal\libreriaarchivo.h
+
