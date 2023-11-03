@@ -8,6 +8,7 @@
 #include <string.h>
 
 void guardarPacientesEnArchivo(arbolPaciente *raiz, char nombrearchivo[]);
-arbolPaciente *cargarArbolDesdeArchivo(char nombrearchivo[]);
+arbolPaciente* cargarArboldeArreglo(sT_Paciente arre[], arbolPaciente* tree);
+int cargarArregloPacientes(sT_Paciente arre[],char nombrearchivo[]);
 
 #endif // LIBRERIAARCHIVO_H_INCLUDED

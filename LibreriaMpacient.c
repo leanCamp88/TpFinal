@@ -6,7 +6,7 @@
 #include <malloc.h>
 #include <string.h>
 #define nombrearchivo "archivopacientes.dat"
-
+#define DIM 50
 
 
 void menuPaciente()
@@ -50,18 +50,22 @@ void menuPaciente()
 
 void altaPaciente()
 {
-    //FILE * arch=fopen(nombrearchivo,"a+b");
     arbolPaciente*tree;
     tree=inicarbol();
+    int val=0;
+    sT_Paciente arre[DIM];
+    val=cargarArregloPacientes(arre,nombrearchivo);
+    tree=cargarArboldeArreglo(arre,tree);
 
     tree=alta_de_Paciente(tree,nombrearchivo);
-    //guardarArbolEnArchivo(tree,nombrearchivo);
-    //fclose(arch);
+
 }
  void muestraListado()
  {
-     FILE*arch=fopen(nombrearchivo,"rb");
-     arbolPaciente*tree=cargarArbolDesdeArchivo(nombrearchivo);
+     int val=0;
+     sT_Paciente arre[DIM];
+     arbolPaciente*tree=inicarbol();
+     val=cargarArregloPacientes(arre,nombrearchivo);
+     tree=cargarArboldeArreglo(arre,tree);
      mostrarPaciente(tree);
-     fclose(arch);
- }
+    }

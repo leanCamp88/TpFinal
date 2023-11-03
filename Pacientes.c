@@ -7,6 +7,7 @@
 #include <string.h>
 
 
+
 ///Iniciar un Arbol
 arbolPaciente*inicarbol()
 {
@@ -30,9 +31,6 @@ arbolPaciente * createPatient(sT_Paciente pers)
 
     aux->Der=inicarbol();
     aux->Izq=inicarbol();
-
-    //aux->ingrerso=NULL;
-
     return aux;
 }
 
@@ -46,6 +44,7 @@ arbolPaciente* getIntoTree (arbolPaciente*tree,sT_Paciente neew)
     }
     else
     {
+        printf("FlaggggGGGGGGGGGGGGGg");
 
         if(neew.DNI<tree->pers.DNI)
         {
@@ -56,6 +55,9 @@ arbolPaciente* getIntoTree (arbolPaciente*tree,sT_Paciente neew)
             tree->Der=getIntoTree(tree->Der,neew);
         }
     }
+    printf("Flagggg");
+    guardarPacientesEnArchivo(tree,"archivopacientes.dat");
+    printf("Flagggg");
     return tree;
 }
 
@@ -63,26 +65,37 @@ arbolPaciente* getIntoTree (arbolPaciente*tree,sT_Paciente neew)
 
 arbolPaciente * buscar(arbolPaciente*arbol, int dato)
 {
+    FILE*arch=fopen("archivopacientes.dat","rb");
     arbolPaciente * buscado =inicarbol();
-    if(arbol)
+    sT_Paciente pers;
+
+    while(fread(&pers,sizeof(sT_Paciente),1,arch)>0)
     {
-    printf("Flagg");
-        if(arbol->pers.DNI==dato)
+        if(pers.DNI==dato)
         {
-            buscado=arbol;
-        }
-        else
-        {
-            if(dato<arbol->pers.DNI)
-            {
-                buscado=buscar(arbol->Izq, dato);
-            }
-            else
-            {
-                buscado=buscar(arbol->Der,dato);
-            }
+            buscado->pers=pers;
         }
     }
+//    if(arbol)
+//    {
+//
+//        if(arbol->pers.DNI==dato)
+//        {
+//            buscado=arbol;
+//        }
+//        else
+//        {
+//            if(dato<arbol->pers.DNI)
+//            {
+//                buscado=buscar(arbol->Izq, dato);
+//            }
+//            else
+//            {
+//                buscado=buscar(arbol->Der,dato);
+//            }
+//        }
+//    }
+    fclose(arch);
     return buscado ;
 }
 
@@ -135,14 +148,16 @@ sT_Paciente newPatient()
 arbolPaciente* alta_de_Paciente(arbolPaciente*tree, char nombrearchivo[])
 {
     sT_Paciente aux=newPatient();
-    printf("Flagg");
     arbolPaciente*buscado=buscar(tree,aux.DNI);
+
     if(buscado==NULL)
     {
+
         tree=getIntoTree(tree,aux);
     }
     else
     {
+              printf("Flagggg45544444554554");
         char opc;
         printf("Paciente ya ingresado anteriormente\nDesea darlo de alta nuevamente?\n");
         fflush(stdin);

@@ -17,6 +17,7 @@ void guardarPacientesEnArchivo(arbolPaciente * raiz,char nombrearchivo[])
     }
     else
     {
+        printf("Flagggg");
         if(raiz)
         {
             sT_Paciente dato=raiz->pers;
@@ -29,26 +30,44 @@ void guardarPacientesEnArchivo(arbolPaciente * raiz,char nombrearchivo[])
 }
 
 
-arbolPaciente *cargarArbolDesdeArchivo(char nombrearchivo[])
+int cargarArregloPacientes(sT_Paciente arre[],char nombrearchivo[])
 {
     FILE*arch=fopen(nombrearchivo,"rb");
-   arbolPaciente*nuevoNodo=inicarbol();
-    sT_Paciente paciente;
+    sT_Paciente pers;
+    int i=0;
     if(arch==NULL)
     {
         printf("Error al abrir el archivo");
     }
     else
     {
-        if(fread(&paciente,sizeof(sT_Paciente),1,arch)>0)
+        while(fread(&pers,sizeof(sT_Paciente),1,arch)>0)
         {
-
-                nuevoNodo = (arbolPaciente *)malloc(sizeof(arbolPaciente));
-                nuevoNodo->pers = paciente;
-                nuevoNodo->Izq = cargarArbolDesdeArchivo(nombrearchivo);
-                nuevoNodo->Der = cargarArbolDesdeArchivo(nombrearchivo);
-            }
+            arre[i]=pers;
+            i++;
         }
-    return nuevoNodo;
-
     }
+    fclose(arch);
+    return i;
+}
+
+arbolPaciente* cargarArboldeArreglo(sT_Paciente arre[], arbolPaciente* tree)
+{
+
+    int i=0;
+    if(tree==NULL)
+    {
+        tree->pers=arre[i];
+    }
+    else///Se me rompe aca y no se porque, no me entra
+    {
+        printf("Flaggggg");        if(tree->pers.DNI<arre[i].DNI)
+        {
+            tree->Izq=cargarArboldeArreglo(arre+1,tree);
+        }else
+        {
+            tree->Der=cargarArboldeArreglo(arre+1,tree);
+        }
+    }
+    return tree;
+}
