@@ -8,7 +8,7 @@
 
 
 
-void guardarPacientesEnArchivo(arbolPaciente * raiz,char nombrearchivo[])
+void guardarPacientesEnArchivo(nodoArbol * raiz,char nombrearchivo[])
 {
     FILE*arch=fopen(nombrearchivo,"ab");
     if(arch==NULL)
@@ -17,10 +17,11 @@ void guardarPacientesEnArchivo(arbolPaciente * raiz,char nombrearchivo[])
     }
     else
     {
+        printf("Flagggg");
         if(raiz)
         {
-            sT_Paciente dato=raiz->pers;
-            fwrite(&dato,sizeof(sT_Paciente),1,arch);
+            patients dato=raiz->pers;
+            fwrite(&dato,sizeof(patients),1,arch);
             fclose(arch);
             guardarPacientesEnArchivo(raiz->Izq,nombrearchivo);
             guardarPacientesEnArchivo(raiz->Der, nombrearchivo);
@@ -29,26 +30,49 @@ void guardarPacientesEnArchivo(arbolPaciente * raiz,char nombrearchivo[])
 }
 
 
-arbolPaciente *cargarArbolDesdeArchivo(char nombrearchivo[])
+int cargarArregloPacientes(patients arre[],char nombrearchivo[])
 {
     FILE*arch=fopen(nombrearchivo,"rb");
-   arbolPaciente*nuevoNodo=inicarbol();
-    sT_Paciente paciente;
+    patients pers;
+    int i=0;
     if(arch==NULL)
     {
         printf("Error al abrir el archivo");
     }
     else
     {
-        if(fread(&paciente,sizeof(sT_Paciente),1,arch)>0)
+        while(fread(&pers,sizeof(patients),1,arch)>0)
         {
-
-                nuevoNodo = (arbolPaciente *)malloc(sizeof(arbolPaciente));
-                nuevoNodo->pers = paciente;
-                nuevoNodo->Izq = cargarArbolDesdeArchivo(nombrearchivo);
-                nuevoNodo->Der = cargarArbolDesdeArchivo(nombrearchivo);
-            }
+            arre[i]=pers;
+            i++;
         }
-    return nuevoNodo;
+    }
+    fclose(arch);
+    return i;
+}
+
+
+
+nodoArbol* cargarArboldeArreglo(patients arre[], nodoArbol* tree)
+{
+
+    int i=0;
+    if(tree==NULL)
+    {
+        tree->pers=arre[i];
 
     }
+    else///Se me rompe aca y no se porque, no me entra
+    {
+        printf("Flaggggg");
+        if(tree->pers.DNI<arre[i].DNI)
+        {
+            tree->Izq=cargarArboldeArreglo(arre,tree);
+        }
+        else
+        {
+            tree->Der=cargarArboldeArreglo(arre,tree);
+        }
+    }
+    return tree;
+}

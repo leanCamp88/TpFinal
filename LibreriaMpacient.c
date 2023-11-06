@@ -6,62 +6,54 @@
 #include <malloc.h>
 #include <string.h>
 #define nombrearchivo "archivopacientes.dat"
-
+#define DIM 50
+#define ESC 27
 
 
 void menuPaciente()
 {
 
-    printf("\t Menu de Pacientes\n");
-    printf("\n1- Alta de Pacientes\n");
-    printf("\n2- Modificacion de Pacientes\n");
-    printf("\n3- Baja de Pacientes\n");
-    printf("\n4- Muesta listado de paciente\n");
+        nodoArbol*tree=inicarbol();
     int menu = 0;
-    menu=getch();
-
-    switch(menu)
+    while(menu!=27)
     {
-    case '1':
         system("cls");
-        altaPaciente();
-        break;
-    case '2':
-        printf("\nEn construccion\n");
-        break;
-    case '3':
-        printf("\nEn construccion\n");
-        break;
-         case '4':
-        system("cls");
-        muestraListado();
-        break;
-    default:
-        printf("\nPorfavor vuelva a seleccionar una opcion valida\n");
-        break;
+        printf("\t Menu de Pacientes\n");
+        printf("\n1- Alta de Pacientes\n");
+        printf("\n2- Modificacion de Pacientes\n");
+        printf("\n3- Baja de Pacientes\n");
+        printf("\n4- Muesta listado de paciente\n");
+        printf("ESC para salir, cualquier otra tecla para continuar...");
 
+        menu=getch();
+
+        switch(menu)
+        {
+        case '1':
+            system("cls");
+           tree=alta_de_Paciente(tree);
+            break;
+        case '2':
+            system("cls");
+            tree=modificarPaciente(tree);
+            break;
+        case '3':
+            printf("\nEn construccion\n");
+            break;
+        case '4':
+            system("cls");
+            muestraListado(tree);
+            break;
+        default:
+            printf("\nPorfavor vuelva a seleccionar una opcion valida\n");
+            break;
+        }
     }
-
-
 }
 
 
-
-
-void altaPaciente()
+void muestraListado(nodoArbol*tree)
 {
-    //FILE * arch=fopen(nombrearchivo,"a+b");
-    arbolPaciente*tree;
-    tree=inicarbol();
-
-    tree=alta_de_Paciente(tree,nombrearchivo);
-    //guardarArbolEnArchivo(tree,nombrearchivo);
-    //fclose(arch);
+    mostrarArbol(tree);
+    getch();
 }
- void muestraListado()
- {
-     FILE*arch=fopen(nombrearchivo,"rb");
-     arbolPaciente*tree=cargarArbolDesdeArchivo(nombrearchivo);
-     mostrarPaciente(tree);
-     fclose(arch);
- }
