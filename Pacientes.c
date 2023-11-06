@@ -9,7 +9,7 @@
 
 
 ///Iniciar un Arbol
-arbolPaciente*inicarbol()
+nodoArbol*inicarbol()
 {
     return NULL;
 }
@@ -18,10 +18,10 @@ arbolPaciente*inicarbol()
 
 ///Crear un nuevo nodo raiz de tipo arbol de paciente
 
-arbolPaciente * createPatient(sT_Paciente pers)
+nodoArbol * createPatient(patients pers)
 {
 
-    arbolPaciente*aux=(arbolPaciente*)malloc(sizeof(arbolPaciente));
+    nodoArbol*aux=(nodoArbol*)malloc(sizeof(nodoArbol));
     strcpy(aux->pers.AyN,pers.AyN);
     strcpy(aux->pers.Domicilio,pers.Domicilio);
     aux->pers.DNI=pers.DNI;
@@ -36,7 +36,7 @@ arbolPaciente * createPatient(sT_Paciente pers)
 
 ///Insertar un nuevo nodo raiz de tipo arbol de paciente
 
-arbolPaciente* getIntoTree (arbolPaciente*tree,sT_Paciente neew)
+nodoArbol* getIntoTree (nodoArbol*tree,patients neew)
 {
     if(tree==NULL)
     {
@@ -44,8 +44,6 @@ arbolPaciente* getIntoTree (arbolPaciente*tree,sT_Paciente neew)
     }
     else
     {
-        printf("FlaggggGGGGGGGGGGGGGg");
-
         if(neew.DNI<tree->pers.DNI)
         {
             tree->Izq=getIntoTree(tree->Izq,neew);
@@ -55,47 +53,33 @@ arbolPaciente* getIntoTree (arbolPaciente*tree,sT_Paciente neew)
             tree->Der=getIntoTree(tree->Der,neew);
         }
     }
-    printf("Flagggg");
-    guardarPacientesEnArchivo(tree,"archivopacientes.dat");
-    printf("Flagggg");
     return tree;
 }
 
 ///Buscar un nodo raiz de tipo arbol de paciente
 
-arbolPaciente * buscar(arbolPaciente*arbol, int dato)
+nodoArbol * buscar(nodoArbol*arbol, int dato)
 {
-    FILE*arch=fopen("archivopacientes.dat","rb");
-    arbolPaciente * buscado =inicarbol();
-    sT_Paciente pers;
-
-    while(fread(&pers,sizeof(sT_Paciente),1,arch)>0)
+    nodoArbol * buscado=inicarbol();
+    if(arbol)
     {
-        if(pers.DNI==dato)
+
+        if(arbol->pers.DNI==dato)
         {
-            buscado->pers=pers;
+            buscado=arbol;
+        }
+        else
+        {
+            if(dato<arbol->pers.DNI)
+            {
+                buscado=buscar(arbol->Izq, dato);
+            }
+            else
+            {
+                buscado=buscar(arbol->Der,dato);
+            }
         }
     }
-//    if(arbol)
-//    {
-//
-//        if(arbol->pers.DNI==dato)
-//        {
-//            buscado=arbol;
-//        }
-//        else
-//        {
-//            if(dato<arbol->pers.DNI)
-//            {
-//                buscado=buscar(arbol->Izq, dato);
-//            }
-//            else
-//            {
-//                buscado=buscar(arbol->Der,dato);
-//            }
-//        }
-//    }
-    fclose(arch);
     return buscado ;
 }
 
@@ -117,9 +101,9 @@ int onOffPatient()
 
 ///Crear un nuevo paciente de tipo paciente
 
-sT_Paciente newPatient()
+patients newPatient()
 {
-    sT_Paciente aux;
+    patients aux;
     printf("\nIngrese Apellido y Nombre\n");
     fflush(stdin);
     gets(aux.AyN);
@@ -127,7 +111,7 @@ sT_Paciente newPatient()
 //    printf("\nDomicilio: \n");
 //    fflush(stdin);
 //    gets(&aux.Domicilio);
-//
+
     printf("\nIngrese DNI\n");
     scanf("%d",&aux.DNI);
 //
@@ -145,38 +129,52 @@ sT_Paciente newPatient()
 
 ///Crear un alta de paciente, en un nodo raiz de tipo arbol de paciente
 
-arbolPaciente* alta_de_Paciente(arbolPaciente*tree, char nombrearchivo[])
+nodoArbol* alta_de_Paciente(nodoArbol*tree)
 {
-    sT_Paciente aux=newPatient();
-    arbolPaciente*buscado=buscar(tree,aux.DNI);
-
-    if(buscado==NULL)
+    int flag=0;
+    while(flag==0)
     {
+        patients aux=newPatient();
+        nodoArbol*buscado=buscar(tree,aux.DNI);
+        if(buscado==NULL)
+        {
+            tree=getIntoTree(tree,aux);
+        }
+        else
+        {
+            char opc;
+            printf("Paciente ya ingresado anteriormente\nDesea darlo de alta nuevamente?\n");
+            fflush(stdin);
+            gets(&opc);
+            if(opc=='s'||opc=='S')
+            {
+                buscado->pers.Eliminado=onOffPatient();
+            }
+        }
 
-        tree=getIntoTree(tree,aux);
-    }
-    else
-    {
-              printf("Flagggg45544444554554");
+        printf("Desea cargar otro Paciente? S/N \n");
         char opc;
-        printf("Paciente ya ingresado anteriormente\nDesea darlo de alta nuevamente?\n");
         fflush(stdin);
         gets(&opc);
         if(opc=='s'||opc=='S')
+            flag=0;
+        else
         {
-            buscado->pers.Eliminado=onOffPatient();
+            flag=1;
         }
     }
+
     return tree;
+
 }
 
 
-arbolPaciente * modificarPaciente (arbolPaciente*tree)
+nodoArbol * modificarPaciente (nodoArbol*tree)
 {
     int dato=0;
     printf("Ingrese DNI del paciente a modificar sin puntos\n");
     scanf("%d", &dato);
-    arbolPaciente*aux=inicarbol();
+    nodoArbol*aux=inicarbol();
     aux=buscar(tree,dato);
     if(aux==NULL)
     {
@@ -192,22 +190,22 @@ arbolPaciente * modificarPaciente (arbolPaciente*tree)
 }
 
 
-void mostrarPaciente(arbolPaciente* tree)
+void mostrarPaciente(nodoArbol* tree)
 {
-    printf("Apellido y nombre: %s",tree->pers.AyN);
-
-    printf("Domicilio: %s",tree->pers.Domicilio);
-    printf("DNI: %i",tree->pers.DNI);
-    printf("Edad: %i",tree->pers.Edad);
-    printf("Telefono: %s",tree->pers.Telefono);
-    if(tree->pers.Eliminado==0)
-        printf("Estado: Activo");
-    else
-        printf("Estado: Inactivo");
+    printf("--------------------------------------------------------------------------------\n");
+    printf("\nApellido y nombre: %s",tree->pers.AyN);
+//    printf("\nDomicilio: %s\n",tree->pers.Domicilio);
+    printf("\nDNI: %i\n",tree->pers.DNI);
+//    printf("\nEdad: %i\n",tree->pers.Edad);
+//    printf("\nTelefono: %s\n",tree->pers.Telefono);
+//    if(tree->pers.Eliminado==0)
+//        printf("\nEstado: Activo\n");
+//    else
+//        printf("\nEstado: Inactivo\n");
 
 }
 
-void mostrarArbol(arbolPaciente*tree)
+void mostrarArbol(nodoArbol*tree)
 {
     if(tree)
     {

@@ -10,7 +10,7 @@
 #include <string.h>
 
 
-typedef struct sT_Paciente
+typedef struct  patients
 {
     char AyN[40];
     int Edad;
@@ -18,45 +18,45 @@ typedef struct sT_Paciente
     char Domicilio[30];
     char Telefono[15];
     int Eliminado;
-}sT_Paciente;
+}patients;
 
-typedef struct _arbolPaciente
+typedef struct  _nodoArbol
 {
-    sT_Paciente pers;
+    patients pers;
     ///struct nodo*ingreso;
-    struct _arbolPaciente*Izq;
-    struct _arbolPaciente*Der;
-}arbolPaciente;
+    struct _nodoArbol*Izq;
+    struct _nodoArbol*Der;
+} nodoArbol;
 
 //1)
-arbolPaciente*inicarbol();
+nodoArbol*inicarbol();
 
 //2)
-arbolPaciente * createPatient(sT_Paciente pers);
+nodoArbol * createPatient(patients pers);
 
 //3)
-arbolPaciente* getIntoTree (arbolPaciente*tree,sT_Paciente neew);
+nodoArbol* getIntoTree (nodoArbol*tree,patients neew);
 
 //4)
-arbolPaciente*serch(arbolPaciente*treepatient, int dato);
+nodoArbol*serch(nodoArbol*treepatient, int dato);
 
 //5)
 int onOffPatient();
 
 //6)
-sT_Paciente newPatient();
+patients newPatient();
 
 //7)
-arbolPaciente* alta_de_Paciente(arbolPaciente*tree, char nombrearchivo[]);
+nodoArbol* alta_de_Paciente(nodoArbol*tree);
 
 //8)
-arbolPaciente * modifyPacient (arbolPaciente*tree);
+nodoArbol * modifyPacient (nodoArbol*tree);
 
 //9)
-void mostrarPaciente(arbolPaciente* tree);
+void mostrarPaciente(nodoArbol* tree);
 
 //10)
-void mostrarArbol(arbolPaciente*tree);
+void mostrarArbol(nodoArbol*tree);
 
 
 

@@ -7,10 +7,11 @@
 #include <stdlib.h>
 #include <malloc.h>
 #include <string.h>
+#include "Pacientes.h"
 
 
 void menuPaciente();
-void altaPaciente();
-void muestraListado();
+
+//void muestraListado(nodoArbol*tree);
 
 #endif // LIBRERIAMPACIENT_H_INCLUDED

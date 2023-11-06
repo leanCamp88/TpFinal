@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1698982453 source:c:\users\leandro\desktop\tec. en programacion\programacion y laboratorio 2\trabajo final\trabajofinal\libreriampacient.c
+1699119435 source:c:\users\leandro\desktop\tec. en programacion\programacion y laboratorio 2\trabajo final\trabajofinal\libreriampacient.c
 	"Pacientes.h"
 	"libreriaMPacient.h"
 	"libreriaArchivo.h"
@@ -8,7 +8,7 @@
 	<malloc.h>
 	<string.h>
 
-1698712018 c:\users\leandro\desktop\tec. en programacion\programacion y laboratorio 2\trabajo final\trabajofinal\pacientes.h
+1699119065 c:\users\leandro\desktop\tec. en programacion\programacion y laboratorio 2\trabajo final\trabajofinal\pacientes.h
 	"Pacientes.h"
 	"libreriaMPacient.h"
 	<stdio.h>
@@ -16,7 +16,16 @@
 	<malloc.h>
 	<string.h>
 
-1698598244 c:\users\leandro\desktop\tec. en programacion\programacion y laboratorio 2\trabajo final\trabajofinal\libreriampacient.h
+1699119409 c:\users\leandro\desktop\tec. en programacion\programacion y laboratorio 2\trabajo final\trabajofinal\libreriampacient.h
+	"Pacientes.h"
+	"libreriaMPacient.h"
+	<stdio.h>
+	<stdlib.h>
+	<malloc.h>
+	<string.h>
+	"Pacientes.h"
+
+1699118859 source:c:\users\leandro\desktop\tec. en programacion\programacion y laboratorio 2\trabajo final\trabajofinal\main.c
 	"Pacientes.h"
 	"libreriaMPacient.h"
 	<stdio.h>
@@ -24,24 +33,7 @@
 	<malloc.h>
 	<string.h>
 
-1698593710 source:c:\users\leandro\desktop\tec. en programacion\programacion y laboratorio 2\trabajo final\trabajofinal\main.c
-	"Pacientes.h"
-	"libreriaMPacient.h"
-	<stdio.h>
-	<stdlib.h>
-	<malloc.h>
-	<string.h>
-
-1698982002 source:c:\users\leandro\desktop\tec. en programacion\programacion y laboratorio 2\trabajo final\trabajofinal\pacientes.c
-	"Pacientes.h"
-	"libreriaMPacient.h"
-	"libreriaArchivo.h"
-	<stdio.h>
-	<stdlib.h>
-	<malloc.h>
-	<string.h>
-
-1698982039 source:c:\users\leandro\desktop\tec. en programacion\programacion y laboratorio 2\trabajo final\trabajofinal\libreriaarchivo.c
+1699119631 source:c:\users\leandro\desktop\tec. en programacion\programacion y laboratorio 2\trabajo final\trabajofinal\pacientes.c
 	"Pacientes.h"
 	"libreriaMPacient.h"
 	"libreriaArchivo.h"
@@ -50,7 +42,16 @@
 	<malloc.h>
 	<string.h>
 
-1698979938 c:\users\leandro\desktop\tec. en programacion\programacion y laboratorio 2\trabajo final\trabajofinal\libreriaarchivo.h
+1699114858 source:c:\users\leandro\desktop\tec. en programacion\programacion y laboratorio 2\trabajo final\trabajofinal\libreriaarchivo.c
+	"Pacientes.h"
+	"libreriaMPacient.h"
+	"libreriaArchivo.h"
+	<stdio.h>
+	<stdlib.h>
+	<malloc.h>
+	<string.h>
+
+1699114825 c:\users\leandro\desktop\tec. en programacion\programacion y laboratorio 2\trabajo final\trabajofinal\libreriaarchivo.h
 	"Pacientes.h"
 	"libreriaMPacient.h"
 	<stdio.h>
