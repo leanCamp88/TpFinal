@@ -3,6 +3,7 @@
 
 
 #include "Pacientes.h"
+#include "listaIngresos.h"
 #include "libreriaMPacient.h"
 #include <stdio.h>
 #include <stdlib.h>
@@ -23,7 +24,7 @@ typedef struct  patients
 typedef struct  _nodoArbol
 {
     patients pers;
-    ///struct nodo*ingreso;
+    struct nodoIngresos* ingreso;
     struct _nodoArbol*Izq;
     struct _nodoArbol*Der;
 } nodoArbol;

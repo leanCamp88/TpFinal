@@ -1,6 +1,7 @@
 #include "Pacientes.h"
 #include "libreriaMPacient.h"
 #include "libreriaArchivo.h"
+#include "listaIngresos.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <malloc.h>
