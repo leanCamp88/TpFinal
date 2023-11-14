@@ -1,5 +1,4 @@
 #include "listaIngresos.h"
-#include "ingresos.h"
 #include <stdio.h>
 #include <stdlib.h>
 ///1 Inicializa la lista

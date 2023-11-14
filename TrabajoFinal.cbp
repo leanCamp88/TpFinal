@@ -40,6 +40,9 @@
 		<Unit filename="LibreriasArchivos.c">
 			<Option compilerVar="CC" />
 		</Unit>
+		<Unit filename="MenuPrincipal.c">
+			<Option compilerVar="CC" />
+		</Unit>
 		<Unit filename="Pacientes.c">
 			<Option compilerVar="CC" />
 		</Unit>
@@ -53,6 +56,10 @@
 		<Unit filename="main.c">
 			<Option compilerVar="CC" />
 		</Unit>
+		<Unit filename="practicas.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="practicas.h" />
 		<Extensions>
 			<lib_finder disable_auto="1" />
 			<code_completion />

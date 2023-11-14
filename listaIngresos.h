@@ -1,6 +1,6 @@
 #ifndef LISTAINGRESOS_H_INCLUDED
 #define LISTAINGRESOS_H_INCLUDED
-#include "ingresos.h"
+
 
 typedef struct stIngresos
 {
