@@ -1,6 +1,7 @@
 #include "listaIngresos.h"
 #include <stdio.h>
 #include <stdlib.h>
+
 ///1 Inicializa la lista
 
     nodoIngresos * inicLista()
@@ -118,7 +119,7 @@ nodoIngresos* borraLista(nodoIngresos* listaIngresos)
 
 ///9 Lee el archivo y carga la lista
 
-nodoIngresos * cargaLista (char nombreArchivo[], int dni)
+nodoIngresos * cargaListaIngresos (char nombreArchivo[], int dni, char archivoPracticasxIngreso[])
 {
     FILE * arch = fopen(nombreArchivo, "rb");
     stIngresos ingresoPaciente;
@@ -131,6 +132,7 @@ nodoIngresos * cargaLista (char nombreArchivo[], int dni)
             if(ingresoPaciente.dni == dni)
             {
                 listaPaciente = agregoFinalListaIngresos(listaPaciente,ingresoPaciente);
+                listaPaciente->practicas = cargarListaPracticas(archivoPracticasxIngreso,listaPaciente->practicas, listaPaciente->dato.nroIngreso);
             }
         }
     }

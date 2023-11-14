@@ -53,13 +53,13 @@
 			<Option compilerVar="CC" />
 		</Unit>
 		<Unit filename="listaIngresos.h" />
+		<Unit filename="listaPracticas.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="listaPracticas.h" />
 		<Unit filename="main.c">
 			<Option compilerVar="CC" />
 		</Unit>
-		<Unit filename="practicas.c">
-			<Option compilerVar="CC" />
-		</Unit>
-		<Unit filename="practicas.h" />
 		<Extensions>
 			<lib_finder disable_auto="1" />
 			<code_completion />

@@ -10,7 +10,20 @@
 #define DIM 50
 #define ESC 27
 
+void iniciandoPrograma()
+{
+    printf("\t\tINICIALIZANDO SISTEMA...\n");
+    FILE*OneArch=fopen("ArchivoDePacientes.dat","rb");
+    FILE*TwoArch=fopen("ArchivoDeIngresos.dat","ab");
+    File *ThreeArch=fopen("ArchivoDePracticasXIngreso.dat","rb");
 
+    if(OneArch!=NULL&&TwoArch!=NULL&&ThreeArch!=NULL)
+    {
+        nodoArbol*tree=inicarbol();
+        tree=cargar_arbol(tree,"ArchivoDePacientes.dat",)
+
+    }
+}
 void menuPaciente()
 {
 
@@ -25,8 +38,6 @@ void menuPaciente()
         printf("\n3- Baja de Pacientes\n");
         printf("\n4- Muesta listado de paciente\n");
         printf("ESC para salir, cualquier otra tecla para continuar...");
-
-        tree=cargar_arbol(tree);
 
         menu=getch();
 

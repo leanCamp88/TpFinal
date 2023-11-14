@@ -32,6 +32,9 @@ nodoArbol * createPatient(patients pers)
 
     aux->Der=inicarbol();
     aux->Izq=inicarbol();
+
+    aux->ingreso =  NULL;
+
     return aux;
 }
 
@@ -223,4 +226,7 @@ void mostrarArbol(nodoArbol*tree)
         mostrarArbol(tree->Der);
     }
 }
+
+
+
 

@@ -23,9 +23,9 @@ void pasar_de_arbol_al_archivo(nodoArbol*lista)
 }
 
 
-nodoArbol* cargar_arbol(nodoArbol*lista)
+nodoArbol* cargar_arbol(nodoArbol*lista, char archivoIngresos[],char archivoPracticasxIngreso[])
 {
-    FILE*archi=fopen("ArchivoDePacientes.dat","ab");
+    FILE*archi=fopen("ArchivoDePacientes.dat","rb");
     if(archi==NULL)
     {
         printf("\nError al abrir el archivo\n");
@@ -37,6 +37,7 @@ nodoArbol* cargar_arbol(nodoArbol*lista)
         while(fread(&paciente,sizeof(patients),1,archi)>0)
         {
             lista=getIntoTree(lista,paciente);
+            lista->ingreso = cargaListaIngresos(archivoIngresos, lista->pers.DNI, archivoPracticasxIngreso);
         }
     }
     fclose(archi);
@@ -71,9 +72,9 @@ nodoArbol* cargarArboldeArreglo(patients arre[], nodoArbol* tree)
 {
 
     int i=0;
-    if(tree==NULL)
+    if(tree==NULL) //INICIALIZAR ARBOL
     {
-        tree->pers=arre[i];
+        tree->pers=arre[i]; //incrementar i
 
     }
     else///Se me rompe aca y no se porque, no me entra
@@ -89,4 +90,14 @@ nodoArbol* cargarArboldeArreglo(patients arre[], nodoArbol* tree)
         }
     }
     return tree;
+}
+
+
+
+nodoArbol * cargarEstructurasArchivo (char archivoPacientes[], char archivoIngresos[], char archivoPracticasxIngresos[], nodoArbol * arbol)
+{
+
+
+
+
 }
