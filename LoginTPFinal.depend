@@ -1,0 +1,19 @@
+# depslib dependency file v1.0
+1699984279 source:c:\utn\juli\2do cuatri\logintpfinal\main.c
+	<stdio.h>
+	<stdlib.h>
+	"login.h"
+
+1699990776 source:c:\utn\juli\2do cuatri\logintpfinal\login.c
+	"login.h"
+	<stdio.h>
+	<string.h>
+
+1699991233 c:\utn\juli\2do cuatri\logintpfinal\login.h
+	<string.h>
+
+1699990824 source:c:\utn\juli\2do cuatri\logintpfinal\menu.c
+	"menu.h"
+
+1699990776 c:\utn\juli\2do cuatri\logintpfinal\menu.h
+
