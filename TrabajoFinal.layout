@@ -2,44 +2,19 @@
 <CodeBlocks_layout_file>
 	<FileVersion major="1" minor="0" />
 	<ActiveTarget name="Debug" />
-	<File name="main.c" open="1" top="0" tabpos="1" split="0" active="1" splitpos="0" zoom_1="11" zoom_2="0">
+	<File name="Pacientes.c" open="1" top="0" tabpos="4" split="0" active="1" splitpos="0" zoom_1="13" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="115" topLine="0" />
-		</Cursor>
-	</File>
-	<File name="LibreriaMpacient.c" open="1" top="0" tabpos="2" split="0" active="1" splitpos="0" zoom_1="12" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="111" topLine="0" />
+			<Cursor1 position="3034" topLine="6" />
 		</Cursor>
 	</File>
 	<File name="LibreriaArchivo.c" open="1" top="0" tabpos="3" split="0" active="1" splitpos="0" zoom_1="12" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="929" topLine="0" />
+			<Cursor1 position="738" topLine="21" />
 		</Cursor>
 	</File>
-	<File name="LibreriasArchivos.c" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="13" zoom_2="0">
+	<File name="LibreriaMpacient.c" open="1" top="1" tabpos="2" split="0" active="1" splitpos="0" zoom_1="12" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="170" topLine="0" />
-		</Cursor>
-	</File>
-	<File name="MenuPrincipal.c" open="1" top="1" tabpos="6" split="0" active="1" splitpos="0" zoom_1="13" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="911" topLine="27" />
-		</Cursor>
-	</File>
-	<File name="libreriaArchivo.h" open="0" top="0" tabpos="6" split="0" active="1" splitpos="0" zoom_1="13" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="438" topLine="0" />
-		</Cursor>
-	</File>
-	<File name="listaIngresos.c" open="1" top="0" tabpos="5" split="0" active="1" splitpos="0" zoom_1="12" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="184" topLine="0" />
-		</Cursor>
-	</File>
-	<File name="Pacientes.c" open="1" top="0" tabpos="4" split="0" active="1" splitpos="0" zoom_1="13" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="3034" topLine="0" />
+			<Cursor1 position="463" topLine="9" />
 		</Cursor>
 	</File>
 	<File name="libreriaMPacient.h" open="0" top="0" tabpos="4" split="0" active="1" splitpos="0" zoom_1="14" zoom_2="0">
@@ -49,12 +24,37 @@
 	</File>
 	<File name="listaIngresos.h" open="1" top="0" tabpos="7" split="0" active="1" splitpos="0" zoom_1="13" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="68" topLine="0" />
+			<Cursor1 position="1131" topLine="24" />
 		</Cursor>
 	</File>
-	<File name="Pacientes.h" open="0" top="0" tabpos="5" split="0" active="1" splitpos="0" zoom_1="11" zoom_2="0">
+	<File name="LibreriasArchivos.c" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="13" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="550" topLine="12" />
+			<Cursor1 position="170" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="main.c" open="1" top="0" tabpos="1" split="0" active="1" splitpos="0" zoom_1="11" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="9" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="libreriaArchivo.h" open="1" top="0" tabpos="8" split="0" active="1" splitpos="0" zoom_1="13" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="494" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="MenuPrincipal.c" open="1" top="0" tabpos="6" split="0" active="1" splitpos="0" zoom_1="13" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="911" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="Pacientes.h" open="1" top="0" tabpos="9" split="0" active="1" splitpos="0" zoom_1="11" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="550" topLine="36" />
+		</Cursor>
+	</File>
+	<File name="listaIngresos.c" open="1" top="0" tabpos="5" split="0" active="1" splitpos="0" zoom_1="12" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="2357" topLine="0" />
 		</Cursor>
 	</File>
 </CodeBlocks_layout_file>

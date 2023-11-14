@@ -10,6 +10,7 @@
 nodoArbol* cargarArboldeArreglo(patients arre[], nodoArbol* tree);
 int cargarArregloPacientes(patients arre[],char nombrearchivo[]);
 void pasar_de_arbol_al_archivo(nodoArbol*lista);
-nodoArbol* cargar_arbol(nodoArbol*lista);
+nodoArbol* cargar_arbol(nodoArbol*lista, char archivoIngresos[],char archivoPracticasxIngreso[]);
+
 
 #endif // LIBRERIAARCHIVO_H_INCLUDED

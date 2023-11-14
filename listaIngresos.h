@@ -17,23 +17,23 @@ typedef struct nodoIngresos
 {
     stIngresos dato;
     struct nodoIngresos * siguiente;
-    //struct nodoIngresosPracticas * practicas;
+    struct nodoPracticas * practicas;
 
 }nodoIngresos;
 
 ///FUNCIONES BASICAS
-nodoIngresos * inicLista(); //1
-nodoIngresos * crearNodo(stIngresos dato); //2
-nodoIngresos* agregarPrincipioLista(nodoIngresos* listaIngresos ,nodoIngresos * nodoNuevo);//3
-void muestraUnNodo(nodoIngresos* nodo); //4
+nodoIngresos * inicListaIngresos(); //1
+nodoIngresos * crearNodoIngresos(stIngresos dato); //2
+nodoIngresos* agregarPrincipioListaIngresos(nodoIngresos* listaIngresos ,nodoIngresos * nodoNuevo);//3
+void muestraUnNodoIngresos(nodoIngresos* nodo); //4
 nodoIngresos* agregoFinalListaIngresos(nodoIngresos* listaIngresos, stIngresos nuevo);//5
 void muestraListaIngresos(nodoIngresos* listaIngresos); //6
 nodoIngresos* buscaUltimoNodoIngresos(nodoIngresos* listaIngresos); //7
-nodoIngresos * borrarLista(nodoIngresos * listaIngresos); //8
+nodoIngresos * borrarListaIngresos(nodoIngresos * listaIngresos); //8
 
 ///FUNCIONES DE ARCHIVOS
-nodoIngresos * cargaLista (char nombreArchivo[], int dni);//9
-void cargarArchivo (nodoIngresos * listaPaciente, char nombreArchivo); //10
+nodoIngresos * cargaListaIngresos (char nombreArchivo[], int dni, char archivoPracticasxIngreso[]);//9
+void cargarArchivoIngresos (nodoIngresos * listaPaciente, char nombreArchivo); //10
 
 stIngresos cargaIngreso();
 void muestraIngreso(stIngresos ingreso);
