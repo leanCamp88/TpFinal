@@ -6,27 +6,41 @@
 #include <malloc.h>
 #include <string.h>
 
-
-
-void guardarPacientesEnArchivo(nodoArbol * raiz,char nombrearchivo[])
+void pasar_de_arbol_al_archivo(nodoArbol*lista)
 {
-    FILE*arch=fopen(nombrearchivo,"ab");
-    if(arch==NULL)
+    FILE*archi=fopen("ArchivoDePacientes.dat","ab");
+    if(archi==NULL)
     {
-        printf("Error al abrir el archivo");
+        printf("\nError al abrir el archivo\n");
+        return(1);
+    }
+       else if(lista!=NULL)
+        {
+            patients paciente=lista->pers;
+            fwrite(&paciente,sizeof(patients),1,archi);
+        }
+        fclose(archi);
+}
+
+
+nodoArbol* cargar_arbol(nodoArbol*lista)
+{
+    FILE*archi=fopen("ArchivoDePacientes.dat","ab");
+    if(archi==NULL)
+    {
+        printf("\nError al abrir el archivo\n");
+        return(1);
     }
     else
     {
-        printf("Flagggg");
-        if(raiz)
+        patients paciente;
+        while(fread(&paciente,sizeof(patients),1,archi)>0)
         {
-            patients dato=raiz->pers;
-            fwrite(&dato,sizeof(patients),1,arch);
-            fclose(arch);
-            guardarPacientesEnArchivo(raiz->Izq,nombrearchivo);
-            guardarPacientesEnArchivo(raiz->Der, nombrearchivo);
+            lista=getIntoTree(lista,paciente);
         }
     }
+    fclose(archi);
+    return lista;
 }
 
 

@@ -25,6 +25,8 @@ void menuPaciente()
         printf("\n4- Muesta listado de paciente\n");
         printf("ESC para salir, cualquier otra tecla para continuar...");
 
+        tree=cargar_arbol(tree);
+
         menu=getch();
 
         switch(menu)
