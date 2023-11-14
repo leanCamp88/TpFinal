@@ -89,12 +89,22 @@ int onOffPatient()
 {
     int estado=0;
     char opc;
-    printf("Desea eliminar al paciente?");
+    printf("Desea cambiar el estado del paciente?\n ");
+    printf("0-Habilitado\n");
+    printf("1-Deshabilitado\n");
     fflush(stdin);
     gets(&opc);
-    if(opc=='s'||opc=='S')
+    switch(opc)
     {
-        estado=1;
+    case '0':
+    estado=0;
+    break;
+case '1':
+    estado=1;
+    break;
+default:
+    printf("Elija una opcion correcta porfavor!!!");
+    break;
     }
     return estado;
 }
@@ -139,19 +149,15 @@ nodoArbol* alta_de_Paciente(nodoArbol*tree)
         if(buscado==NULL)
         {
             tree=getIntoTree(tree,aux);
+            pasar_de_arbol_al_archivo(tree);
         }
         else
         {
             char opc;
-            printf("Paciente ya ingresado anteriormente\nDesea darlo de alta nuevamente?\n");
-            fflush(stdin);
-            gets(&opc);
-            if(opc=='s'||opc=='S')
-            {
-                buscado->pers.Eliminado=onOffPatient();
-            }
+            printf("Paciente ya ingresado anteriormente\n");
+            buscado->pers.Eliminado=onOffPatient();
         }
-
+        pasar_de_arbol_al_archivo(buscado);
         printf("Desea cargar otro Paciente? S/N \n");
         char opc;
         fflush(stdin);
@@ -192,14 +198,16 @@ nodoArbol * modificarPaciente (nodoArbol*tree)
 
 void mostrarPaciente(nodoArbol* tree)
 {
-    printf("--------------------------------------------------------------------------------\n");
-    printf("\nApellido y nombre: %s",tree->pers.AyN);
+    if(tree->pers.Eliminado==0)
+    {
+        printf("--------------------------------------------------------------------------------\n");
+        printf("\nApellido y nombre: %s",tree->pers.AyN);
 //    printf("\nDomicilio: %s\n",tree->pers.Domicilio);
-    printf("\nDNI: %i\n",tree->pers.DNI);
+        printf("\nDNI: %i\n",tree->pers.DNI);
 //    printf("\nEdad: %i\n",tree->pers.Edad);
 //    printf("\nTelefono: %s\n",tree->pers.Telefono);
-//    if(tree->pers.Eliminado==0)
 //        printf("\nEstado: Activo\n");
+    }
 //    else
 //        printf("\nEstado: Inactivo\n");
 
