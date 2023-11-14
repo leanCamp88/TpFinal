@@ -7,7 +7,9 @@
 #include <malloc.h>
 #include <string.h>
 
-void guardarPacientesEnArchivo(arbolPaciente *raiz, char nombrearchivo[]);
-arbolPaciente *cargarArbolDesdeArchivo(char nombrearchivo[]);
+nodoArbol* cargarArboldeArreglo(patients arre[], nodoArbol* tree);
+int cargarArregloPacientes(patients arre[],char nombrearchivo[]);
+void pasar_de_arbol_al_archivo(nodoArbol*lista);
+nodoArbol* cargar_arbol(nodoArbol*lista);
 
 #endif // LIBRERIAARCHIVO_H_INCLUDED

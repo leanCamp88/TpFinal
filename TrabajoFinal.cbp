@@ -37,6 +37,9 @@
 		<Unit filename="LibreriaMpacient.c">
 			<Option compilerVar="CC" />
 		</Unit>
+		<Unit filename="LibreriasArchivos.c">
+			<Option compilerVar="CC" />
+		</Unit>
 		<Unit filename="Pacientes.c">
 			<Option compilerVar="CC" />
 		</Unit>
