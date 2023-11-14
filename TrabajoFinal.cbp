@@ -43,11 +43,18 @@
 		<Unit filename="Pacientes.h" />
 		<Unit filename="libreriaArchivo.h" />
 		<Unit filename="libreriaMPacient.h" />
+		<Unit filename="listaIngresos.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="listaIngresos.h" />
 		<Unit filename="main.c">
 			<Option compilerVar="CC" />
 		</Unit>
 		<Extensions>
 			<lib_finder disable_auto="1" />
+			<code_completion />
+			<envvars />
+			<debugger />
 		</Extensions>
 	</Project>
 </CodeBlocks_project_file>
