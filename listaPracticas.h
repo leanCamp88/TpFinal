@@ -1,9 +1,6 @@
 #ifndef LISTAPRACTICAS_H_INCLUDED
 #define LISTAPRACTICAS_H_INCLUDED
-#ifndef LISTAPRODUCTO_H_INCLUDED
-#define LISTAPRODUCTO_H_INCLUDED
 
-#include "Pacientes.h"
 
 typedef struct stPracxIngreso
 {
@@ -20,6 +17,7 @@ typedef struct nodoPracticas
 
 }nodoPracticas;
 
+///GUIARSE CON FUNCIONES DE LISTA PRACTICAS
 
 ///FUNCIONES BASICAS
 nodoPracticas* inicListaPractica(); //1
@@ -34,7 +32,6 @@ nodoPracticas* buscarNodoPractica(nodoPracticas* listaPracticas, int id); // 9
 ///FUNCIONES DE ARCHIVOS
 nodoIngresos * cargaListaIngresos (char nombreArchivo[],  nodoPracticas * listaPracticas, int idIngreso);// 10
 void cargaArchivoPractica(nodoPracticas * listaPracticas, char nombreArchivoPracticas[]); //11
-
 
 
 

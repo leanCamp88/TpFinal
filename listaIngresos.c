@@ -1,15 +1,23 @@
+#include "menus.h"
+#include "arbolPacientes.h"
 #include "listaIngresos.h"
+#include "listaPracticas.h"
+#include "login.h"
+#include "practicas.h"
+#include "empleados.h"
 #include <stdio.h>
 #include <stdlib.h>
 
-///1 Inicializa la lista
+///FUNCIONES BASICAS
+
+//1 Inicializa la lista
 
     nodoIngresos * inicLista()
     {
         return NULL;
     }
 
-///2 Funcion que crea un nuevo nodo Ingreso
+//2 Funcion que crea un nuevo nodo Ingreso
 
     nodoIngresos * crearNodo(stIngresos dato)
     {
@@ -18,37 +26,19 @@
 
         nodoNuevo->dato = dato;
         nodoNuevo->siguiente = NULL;
-        //nodoNuevo->practicas = inicLista();
+        nodoNuevo->practicas = inicLista(); //inicializo la cabecera de la lista enlazada de practicas
 
         return nodoNuevo;
     }
 
-///3 Funcion que agrega datos a la lista desde el principio
-
-    nodoIngresos* agregarPrincipioLista(nodoIngresos* listaIngresos ,nodoIngresos * nodoNuevo)
-    {
-
-        if(listaIngresos == NULL)
-        {
-            listaIngresos = nodoNuevo;
-        }
-        else
-        {
-            nodoNuevo->siguiente = listaIngresos;
-            listaIngresos = nodoNuevo;
-        }
-
-        return listaIngresos;
-    }
-
-///4 Muestra un nodo
+//3 Muestra un nodo
 
     void muestraUnNodo(nodoIngresos* nodo)
     {
         muestraIngreso(nodo->dato);
     }
 
-///5 Agrego el final de la lista
+//4 Agrego el final de la lista
 
 nodoIngresos* agregoFinalListaIngresos(nodoIngresos* listaIngresos, stIngresos nuevo)
 {
@@ -69,7 +59,7 @@ nodoIngresos* agregoFinalListaIngresos(nodoIngresos* listaIngresos, stIngresos n
     return listaIngresos;
 }
 
-///6 Muestra lista
+//5 Muestra lista
 
     void muestraListaIngresos(nodoIngresos* listaIngresos)
     {
@@ -83,7 +73,7 @@ nodoIngresos* agregoFinalListaIngresos(nodoIngresos* listaIngresos, stIngresos n
 
     }
 
-///7 Busca ultimo nodo
+//6 Busca ultimo nodo
 
     nodoIngresos* buscaUltimoNodoIngresos(nodoIngresos* listaIngresos)
     {
@@ -101,7 +91,7 @@ nodoIngresos* agregoFinalListaIngresos(nodoIngresos* listaIngresos, stIngresos n
     }
 
 
-///8 Borrar lista
+//7 Borrar lista
 
 nodoIngresos* borraLista(nodoIngresos* listaIngresos)
 {
@@ -117,9 +107,19 @@ nodoIngresos* borraLista(nodoIngresos* listaIngresos)
     return listaIngresos;
 }
 
-///9 Lee el archivo y carga la lista
+//8 Busca un ingreso
 
-nodoIngresos * cargaListaIngresos (char nombreArchivo[], int dni, char archivoPracticasxIngreso[])
+nodoIngresos * buscaIngreso(nodoIngresos * listaIngresos, int idIngreso)
+{
+
+}
+
+
+///FUNCIONES RELACIONADAS CON EL ARCHIVO INGRESOS
+
+//9 Lee el archivo y carga la lista (filtra por el dni)
+
+nodoIngresos * cargaLista (char nombreArchivo[], int dni)
 {
     FILE * arch = fopen(nombreArchivo, "rb");
     stIngresos ingresoPaciente;
@@ -132,7 +132,6 @@ nodoIngresos * cargaListaIngresos (char nombreArchivo[], int dni, char archivoPr
             if(ingresoPaciente.dni == dni)
             {
                 listaPaciente = agregoFinalListaIngresos(listaPaciente,ingresoPaciente);
-                listaPaciente->practicas = cargarListaPracticas(archivoPracticasxIngreso,listaPaciente->practicas, listaPaciente->dato.nroIngreso);
             }
         }
     }
@@ -142,7 +141,7 @@ nodoIngresos * cargaListaIngresos (char nombreArchivo[], int dni, char archivoPr
 
 }
 
-///10 Carga el archivo con los datos de la lista recibida por paremetro
+//10 Carga el archivo con los datos de la lista recibida por paremetro
 
 void cargarArchivo (nodoIngresos * listaPaciente, char nombreArchivo) //funcion que recorra el arbol y llame a esta funcion en cada raiz->punterolista
 {
@@ -158,6 +157,10 @@ void cargarArchivo (nodoIngresos * listaPaciente, char nombreArchivo) //funcion 
 
     fclose(arch);
 }
+
+/// FUNCIONES DE LA ESTRUCTURA INGRESOS
+
+//11 Funcion que cargar la estructura de ingreso
 
 stIngresos cargaIngreso(nodoIngresos * listaIngresos)
 {
@@ -180,6 +183,8 @@ stIngresos cargaIngreso(nodoIngresos * listaIngresos)
     return ingreso;
 }
 
+//12 Funcion que muestra estructura ingreso completa
+
 void muestraIngreso(stIngresos ingreso)
 {
     printf("----------------------------------\n");
@@ -189,5 +194,4 @@ void muestraIngreso(stIngresos ingreso)
     printf("Matricula.............:%i \n", ingreso.matriculaProfesional);
     printf("----------------------------------\n");
 }
-
 
