@@ -1,20 +1,23 @@
 #include "menus.h"
-#include "Pacientes.h"
-#include "listaIngresos.h
+#include "arbolPacientes.h"
+#include "listaIngresos.h"
 #include "listaPracticas.h"
+#include "login.h"
+#include "practicas.h"
+#include "empleados.h"
 
 void menuPrincipal(){
 
     int opcion;
 
     arbolPacientes* arbolPacientes = inicArbol();
-    arbolPacientes = cargarArchivosEstructuras(archivoPacientes, archivoPracticasxIngreso, archivoIngresos, arbolPacientes); ///funcion que llama a las 3 funciones de lectura archivo
+    arbolPacientes = cargarArchivosEstructuras(archivoPacientes, archivoPracticasxIngreso, archivoIngresos, arbolPacientes);
+    ///funcion que llama a las 3 funciones de lectura archivo
 
     do
     {
 
         printf("1. Login");
-        printf("2. Registrarse");
         printf("0. Salir"); //opc final para cargar datos nuevamente en archivos
 
         scanf("%i",opcion);
@@ -23,18 +26,14 @@ void menuPrincipal(){
         {
         case 1:
 
-            login();
-
-            break;
-
-        case 2:
-
-            registro();
+            empleado = login(char archivoEmpleados);
+            arbolPacientes = menuPerfiles(empleado);
 
             break;
 
         case 0:
 
+            guardadoEstructurasArchivos;
 
             break;
         }
@@ -45,50 +44,129 @@ void menuPrincipal(){
 }
 
 
-void login(){
 
-    menuPerfiles(perfil);
 
-}
-
-void ingreso()
+nodoPaciente * menuPerfiles(stEmpleado perfil, nodoPaciente * arbolGeneral)
 {
-    menuPerfiles(perfil);
-}
-
-void menuPerfiles(perfil)
-{
-     switch(perfil)
+     switch(perfil.Usuario)¿?
     {
     case 1:
-        menuAdmi();
+        arbolGeneral = menuAdministrador();
         break;
 
     case 2:
 
-        menuDoc();
+        arbolGeneral = menuProfesionales();
         break;
 
     case 3:
 
-        menuSec();
+        arbolGeneral = menuAdministrativo();
         break;
     }
 
+    return arbolGeneral;
+
 }
 
-void menuAdmi() //TODO
+nodoPaciente * menuAdmi(nodoPaciente * arbolGeneral, archivoEmpleados, archivoPracticas) //TODO
 {
-
-    printf("MENU ADMINISTRADOR");
+    int opc;
+    printf("--------------------------------");
+    printf("BIENVENIDO AL MENU ADMINISTRADOR");
 
     printf("1- PACIENTES"); // MODIFICACION, BAJA, ALTA, MUESTRA
     printf("2- PRACTICAS"); // MOFICICACION, BAJA, ALTA, MUESTRA
     printf("3- INGRESOS"); //MODIFICACION, BAJA, ALTA, MUESTRA
     printf("4- EMPLEADOS"); // MODIFICACION, BAJA, ALTA, MUESTRA
+    scanf("%i", opc);
+
+    switch(opc)
+    {
+        case 1:
+
+            arbolGeneral = menuPacientes(arbolGeneral);
+
+        break;
+
+        case 2:
+
+            arbolGeneral = menuPracticas(arbolGeneral,archivoPracticas);
+
+        break;
+
+        case 3:
+
+            arbolGeneral = menuIngresos(arbolGeneral, archivoIngresos);
+
+        break;
+
+        case 4:
+
+            menuEmpleados(archivoEmpleados);
+
+    }
 
 
 
+}
+
+nodoPaciente * menuPacientes (nodoPaciente * arbolGeneral)
+{
+    int opc;
+
+    printf("1 - Ver listado de pacientes");
+    printf("2 - Buscar paciente");
+    scanf("%i", opc);
+
+    switch(opc)
+    {
+    case 1:
+
+        mostrarPacientesOrdenadoNYA(arbolGeneral); //funcion que muestra en orden de nombre y apellido
+
+    break;
+
+    case 2:
+
+            int dni =0;
+            printf("Ingrese el dni del paciente");
+            scanf("%i", dni);
+            nodoPaciente * nodoPaciente = buscaPaciente(arbolGeneral,dni);
+
+            if(paciente == NULL)
+            {
+                printf("El paciente no esta cargado");
+
+            }else{ //VER
+
+                muestraPaciente(nodoPaciente.paciente);
+
+                printf("1 - Modificar datos del paciente");
+                printf("2 - Volver al menu anterior");
+                scanf("%i", opc);
+
+                switch(opc)
+                {
+                case 1:
+
+                    arbolGeneral = modificacionPaciente(arbolGeneral,nodoPaciente.paciente);
+
+                    break;
+
+                case 2:
+
+                    default;
+                }
+
+
+            }
+
+
+
+    }
+
+    return arbolGeneral;
 }
 
 void menuDoc(){

@@ -2,12 +2,12 @@
 <CodeBlocks_project_file>
 	<FileVersion major="1" minor="6" />
 	<Project>
-		<Option title="TrabajoFinal" />
+		<Option title="tpfinalLaboratorioLUCRE" />
 		<Option pch_mode="2" />
 		<Option compiler="gcc" />
 		<Build>
 			<Target title="Debug">
-				<Option output="bin/Debug/TrabajoFinal" prefix_auto="1" extension_auto="1" />
+				<Option output="bin/Debug/tpfinalLaboratorioLUCRE" prefix_auto="1" extension_auto="1" />
 				<Option object_output="obj/Debug/" />
 				<Option type="1" />
 				<Option compiler="gcc" />
@@ -16,7 +16,7 @@
 				</Compiler>
 			</Target>
 			<Target title="Release">
-				<Option output="bin/Release/TrabajoFinal" prefix_auto="1" extension_auto="1" />
+				<Option output="bin/Release/tpfinalLaboratorioLUCRE" prefix_auto="1" extension_auto="1" />
 				<Option object_output="obj/Release/" />
 				<Option type="1" />
 				<Option compiler="gcc" />
@@ -31,24 +31,14 @@
 		<Compiler>
 			<Add option="-Wall" />
 		</Compiler>
-		<Unit filename="LibreriaArchivo.c">
+		<Unit filename="arbolPacientes.c">
 			<Option compilerVar="CC" />
 		</Unit>
-		<Unit filename="LibreriaMpacient.c">
+		<Unit filename="arbolPacientes.h" />
+		<Unit filename="empleados.c">
 			<Option compilerVar="CC" />
 		</Unit>
-		<Unit filename="LibreriasArchivos.c">
-			<Option compilerVar="CC" />
-		</Unit>
-		<Unit filename="MenuPrincipal.c">
-			<Option compilerVar="CC" />
-		</Unit>
-		<Unit filename="Pacientes.c">
-			<Option compilerVar="CC" />
-		</Unit>
-		<Unit filename="Pacientes.h" />
-		<Unit filename="libreriaArchivo.h" />
-		<Unit filename="libreriaMPacient.h" />
+		<Unit filename="empleados.h" />
 		<Unit filename="listaIngresos.c">
 			<Option compilerVar="CC" />
 		</Unit>
@@ -57,14 +47,23 @@
 			<Option compilerVar="CC" />
 		</Unit>
 		<Unit filename="listaPracticas.h" />
+		<Unit filename="login.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="login.h" />
 		<Unit filename="main.c">
 			<Option compilerVar="CC" />
 		</Unit>
+		<Unit filename="menus.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="menus.h" />
+		<Unit filename="practicas.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="practicas.h" />
 		<Extensions>
 			<lib_finder disable_auto="1" />
-			<code_completion />
-			<envvars />
-			<debugger />
 		</Extensions>
 	</Project>
 </CodeBlocks_project_file>

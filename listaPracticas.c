@@ -1,5 +1,11 @@
-
+#include "menus.h"
+#include "arbolPacientes.h"
+#include "listaIngresos.h"
 #include "listaPracticas.h"
+#include "login.h"
+#include "practicas.h"
+#include "empleados.h"
+
 
 ///1 Inicializa la lista
 
