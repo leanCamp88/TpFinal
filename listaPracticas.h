@@ -2,18 +2,27 @@
 #define LISTAPRACTICAS_H_INCLUDED
 
 
-typedef struct stPracxIngreso
+typedef struct stPracticas
 {
-    int NroIngreso;
     int NroPractica;
-    char Resultado[40];
+    char nombreDePractica[30];
+    int Eliminado;
 
-}stPracxIngreso;
+}stPracticas;
+
+typedef struct stPracticaxIngreso
+{
+    int nroPractica;
+    char nombreDePractica[30];
+    int nroIngreso;
+    char resultado[100];
+
+}stPracticaxIngreso;
 
 typedef struct nodoPracticas
 {
-    stPracxIngreso practica;
-    struct nodoPracticas *siguiente;
+    stPracticaxIngreso practicasxIngreso;
+    struct  nodoPracticas *siguiente;
 
 }nodoPracticas;
 
@@ -21,10 +30,10 @@ typedef struct nodoPracticas
 
 ///FUNCIONES BASICAS
 nodoPracticas* inicListaPractica(); //1
-nodoPracticas* creaNodoPractica(stPracxIngreso dato); //2
-nodoPracticas* agregoFinalListaPractica(nodoPracticas* lista, nodoPracticas* nuevoNodo);//3
+nodoPracticas* creaNodoPractica(stPracticas dato); //2
+nodoPracticas * agregoFinalListaPractica(nodoPracticas* listaPracticas, stPracticas  nuevo);//3
 void muestraUnaPractica(nodoPracticas * practica); //4
-stPracxIngreso cargaUnaPractica(); // 5
+stPracticas cargaUnaPractica(); // 5
 void muestraListaPracticas(nodoPracticas* listaPractica); //6
 nodoPracticas* buscaUltimoNodoPractica(nodoPracticas* listaPracticas); //7
 nodoPracticas * borrarListaPracticas(nodoIngresos * listaIngresos); //8

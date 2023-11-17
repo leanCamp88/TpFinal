@@ -5,23 +5,28 @@
 #include "login.h"
 #include "practicas.h"
 #include "empleados.h"
+#include <stddef.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#define ARCHIVOSOLOPRACTICA "laspracticas.bin"
 
 
 ///1 Inicializa la lista
 
-    nodoIngresos * inicListaPractica()
+    nodoPracticas * inicListaPractica()
     {
         return NULL;
     }
 
 ///2 Funcion que crea un nuevo nodo Practicas
 
-    nodoPracticas * crearNodoPractica(stPracxIngreso dato)
+    nodoPracticas * crearNodoPractica(stPracticaxIngreso dato)
     {
 
         nodoPracticas* nodoNuevo = (nodoPracticas*) malloc(sizeof(nodoPracticas));
 
-        nodoNuevo->practica = dato;
+        nodoNuevo->practicasxIngreso = dato;
         nodoNuevo->siguiente = NULL;
 
         return nodoNuevo;
@@ -29,11 +34,10 @@
 
 ///3 Agrego el final de la lista
 
-nodoPractica* agregoFinalListaPractica(nodoPracticas* listaPracticas, nodoPracticas* nuevoNodo);
+nodoPracticas * agregoFinalListaPractica(nodoPracticas* listaPracticas, stPracticaxIngreso nuevo)
 {
     nodoPracticas* ultimo;
-    nodoPracticas * nuevoNodo;
-    nuevoNodo = crearNodoPractica(nuevo);
+    nodoPracticas * nuevoNodo=crearNodoPractica(nuevo);
 
     if(listaPracticas == NULL)
     {
@@ -50,25 +54,35 @@ nodoPractica* agregoFinalListaPractica(nodoPracticas* listaPracticas, nodoPracti
 
 ///4 Muestra una practica Ingreso
 
-    void muestraUnaPracticaIngreso(stPracxIngreso practica)
+    void muestraUnaPracticaIngreso(nodoPracticas* practica)
     {
-        printf("NRO ingreso %i", practica.NroIngreso);
-        printf("NRO practica %i", practica.NroPractica);
-        printf("RESULTADO: %s", practica.Resultado);
+        printf("NRO ingreso %i", practica->NroIngreso);
+        printf("Nombre de Practica: %s", practica->practica.nombreDePractica);
+        printf("NRO practica %i", practica->practica.NroPractica);
+        printf("RESULTADO: %s", practica->Resultado);
     }
 
 ///5 Carga de la estructura practica
-
-stPracxIngreso cargaUnaPractica(int idIngreso){
-
-    stPracxIngreso practica;
-    nodoPracticas * ultimo = buscaUltimoID(archivoPracticasxIngresos); //funcion que busca mayor id en el archivo
-
-    practica.nroIngreso = idIngreso;
-    practica.NroPractica = buscarPractica(archivoPracticas); //libreria practicas
-    strcpy(practica.Resultado,""); //resultado en vacio;}
-
-    return practica;
+///modificar con la estructura de stPracticaxIngreso!!!
+stPracticaxIngreso cargaUnaPractica(int idIngreso,int nroPractica)
+{
+    stPracticas practica;
+    stPracticaxIngreso ingreso;
+    FILE*arch=fopen(ARCHIVOSOLOPRACTICA,"rb");
+    if(arch)
+    {
+        while(fread(&practica,sizeof(stPracticas),1,arch)>0)
+        {
+            if(practica.NroPractica==nroPractica)
+            {
+                strcpy(ingreso.nombreDePractica,practica.nombreDePractica);
+                ingreso.nroPractica=practica.NroPractica;
+                strcpy(ingreso.resultado,"sin resultado");
+                ingreso.nroIngreso=idIngreso;
+            }
+        }
+    }
+    return ingreso;
 }
 
 ///6 Muestra lista
@@ -127,25 +141,23 @@ nodoPracticas* buscarNodoPractica(nodoPracticas* listaPracticas, int id)
 
 ///10 Lee el archivo y carga la lista
 
-nodoPracticas * cargaListaIngresos (char nombreArchivo[], nodoPracticas * listaPractica, int idIngreso)
+nodoPracticas * cargaListaPracticas (nodoPracticas * listaPractica, int idIngreso)
 {
-    FILE * arch = fopen(nombreArchivo, "rb");
-    stPracxIngreso ingresoPractica;
+    FILE * arch = fopen(ARCHIVOPRACTICASXINGRESO, "rb");
+    stPracticaxIngreso ingresoPractica;
 
     if(arch != NULL)
     {
-        while(fread(&ingresoPractica,sizeof(stPracxIngreso),1,arch)>0) //borrar los datos?
+        while(fread(&ingresoPractica,sizeof(stPracticaxIngreso),1,arch)>0) //borrar los datos?
         {
-            if(idIngreso == ingresoPractica.NroIngreso)
+            if(idIngreso == ingresoPractica.nroIngreso)
             {
                 listaPractica = agregoFinalListaPractica(listaPractica,crearNodoPractica(ingresoPractica));
             }
         }
     }
-
     fclose(arch);
     return listaPractica;
-
 }
 
 ///11 Carga el archivo con los datos de la lista recibida por paremetro
@@ -156,8 +168,8 @@ void cargarArchivoIngresosPracticas (nodoPracticas * listaPracticas, char nombre
 
     while(listaPracticas != NULL)
     {
-        stPracxIngreso practica = listaPracticas->dato;
-        fwrite(&practica,sizeof(stPracxIngreso),1,arch);
+        stPracticas practica = listaPracticas->dato;
+        fwrite(&practica,sizeof(stPracticas),1,arch);
         listaPracticas = listaPracticas->siguiente;
     }
 
