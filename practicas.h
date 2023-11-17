@@ -1,8 +1,10 @@
 #ifndef PRACTICAS_H_INCLUDED
 #define PRACTICAS_H_INCLUDED
 
+#include "listaPracticas.h"
 
-ESTRUCTURA PRACTICA
+///ESTRUCTURA PRACTICA
+/*
 
 - carga de estructura
 - modificacion datos
@@ -18,11 +20,12 @@ practicas cuyo nombre comiencen con lo seleccionado por el usuario. Ejemplo: si 
 elige la combinación “he”, deberían mostrarse practicas como: “hemograma o
 hepatograma” etc.
 
+*/
 
 void mostrarPracticas(char archivo []);
 void modificacionPractica(char archivo[]);
 int buscarporNombrePracticas(char archivo []);
-void mostrarPractica(Practicas practica);
+void mostrarPractica(stPracticas practica);
 void baja_alta_practica(char archivo[]);
 
 #endif // PRACTICAS_H_INCLUDED

@@ -119,9 +119,9 @@ nodoIngresos * buscaIngreso(nodoIngresos * listaIngresos, int idIngreso)
 
 //9 Lee el archivo y carga la lista (filtra por el dni)
 
-nodoIngresos * cargaLista (char nombreArchivo[], int dni)
+nodoIngresos * cargaLista (int dni)
 {
-    FILE * arch = fopen(nombreArchivo, "rb");
+    FILE * arch = fopen(ARCHIVOINGRESOS, "rb");
     stIngresos ingresoPaciente;
     nodoIngresos * listaPaciente = inicLista();
 
@@ -169,9 +169,9 @@ stIngresos cargaIngreso(nodoIngresos * listaIngresos)
 
     ingreso.nroIngreso = ultimo->dato.nroIngreso+1;
     printf("Ingrese la fecha de INGRESO dia/mes/anio \n");
-    gets(ingreso.fechaIngreso);
+    getch(ingreso.fechaIngreso);
     printf("Ingrese la fecha de RETIRO dia/mes/anio \n");
-    gets(ingreso.fechaRetiro);
+    getch(ingreso.fechaRetiro);
     printf("Ingrese el dni del paciente");
     scanf("%i", &ingreso.dni);
     printf("Ingrese su matricula \n");

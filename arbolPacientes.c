@@ -2,6 +2,10 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <malloc.h>
+<<<<<<< HEAD
+=======
+///leandro
+>>>>>>> LeanBranch
 
 ///FUNCIONES BASICAS
 
@@ -38,7 +42,11 @@ nodoPaciente * agregaPaciente(nodoPaciente*arbol,stPaciente dato)
             arbol->Der=agregaPaciente(arbol->Der,dato);
         }
     }
+<<<<<<< HEAD
     retur arbol;
+=======
+    return arbol;
+>>>>>>> LeanBranch
 }
 
 ///recibe dni y devulve nodo NULL si no lo encuentra
@@ -80,7 +88,11 @@ stPaciente modificarAYP(stPaciente dato)
 stPaciente modificarEdad(stPaciente dato)
 {
     printf("Ingrese nueva Edad:\n");
+<<<<<<< HEAD
     scanf("%d", &dato.edad);
+=======
+    scanf("%d", &dato.Edad);
+>>>>>>> LeanBranch
     return dato;
 }
 stPaciente modificarDNI(stPaciente dato)
@@ -127,7 +139,11 @@ stPaciente modificarAltaBaja(stPaciente dato)
             dato.Eliminado=0;
         }
     }
+<<<<<<< HEAD
     return dato
+=======
+    return dato;
+>>>>>>> LeanBranch
 }
 
 nodoPaciente * modificacionPaciente(nodoPaciente*arbol, int dato)
@@ -207,7 +223,11 @@ void muestraArbol(nodoPaciente*arbol)
 void muestraPaciente(stPaciente dato)
 {
     printf("-----------------------------------------------------------\n");
+<<<<<<< HEAD
     printf("Apellido y nombre: %s\n", dato.ApellidoyNombre);
+=======
+    printf("Apellido y nombre: %s\n", dato.ApeliidoyNombre);
+>>>>>>> LeanBranch
     printf("Edad: %d\n", dato.Edad);
     printf("DNI: %d\n", dato.DNI);
     printf("Domicilio: %s\n", dato.Domicilio);
@@ -218,11 +238,19 @@ void muestraPaciente(stPaciente dato)
     }
     else
     {
+<<<<<<< HEAD
         printf("Estado: Alta\n")
     }
 }
 ///Funcion de arbol a arreglo
 /*
+=======
+        printf("Estado: Alta\n");
+    }
+}
+///Funcion de arbol a arreglo
+
+>>>>>>> LeanBranch
 int contarNodos(nodoPaciente* raiz)
 {
     if (raiz == NULL)
@@ -231,12 +259,17 @@ int contarNodos(nodoPaciente* raiz)
     }
     else
     {
+<<<<<<< HEAD
         return 1 + contarNodos(raiz->izq) + contarNodos(raiz->der);
+=======
+        return 1 + contarNodos(raiz->Izq) + contarNodos(raiz->Der);
+>>>>>>> LeanBranch
     }
 }
 
 int compararPacientes(const void* a, const void* b)
 {
+<<<<<<< HEAD
     return strcmp(((paciente*)a)->nya, ((paciente*)b)->nya);
 }
 
@@ -248,16 +281,36 @@ void recorridoInorden(nodoPaciente* raiz, paciente* arreglo, int* indice)
         arreglo[*indice] = raiz->p;
         (*indice)++;
         recorridoInorden(raiz->der, arreglo, indice);
+=======
+    return strcmp(((stPaciente*)a)->ApeliidoyNombre, ((stPaciente*)b)->ApeliidoyNombre);
+}
+
+void recorridoInorden(nodoPaciente* raiz, stPaciente* arreglo, int* indice)
+{
+    if (raiz != NULL)
+    {
+        recorridoInorden(raiz->Izq, arreglo, indice);
+        arreglo[*indice] = raiz->paciente;
+        (*indice)++;
+        recorridoInorden(raiz->Der, arreglo, indice);
+>>>>>>> LeanBranch
     }
 }
 
 void mostrarPacientesOrdenadosAlfabeticamente(nodoPaciente* raiz)
 {
     int tamanioarreglo=contarNodos(raiz);
+<<<<<<< HEAD
     paciente*arreglo=(paciente*)malloc(tamanioarreglo*sizeof(paciente));
     int indice=0;
     recorridoInorden(raiz,arreglo,&indice);
     qsort(arreglo,tamanioarreglo,sizeof(paciente),compararPacientes);
+=======
+    stPaciente*arreglo=(stPaciente*)malloc(tamanioarreglo*sizeof(stPaciente));
+    int indice=0;
+    recorridoInorden(raiz,arreglo,&indice);
+    qsort(arreglo,tamanioarreglo,sizeof(stPaciente),compararPacientes);
+>>>>>>> LeanBranch
     int i;
     for(i=0; i<tamanioarreglo; i++)
     {
@@ -265,12 +318,17 @@ void mostrarPacientesOrdenadosAlfabeticamente(nodoPaciente* raiz)
     }
     free(arreglo);
 }
+<<<<<<< HEAD
 */
+=======
+
+>>>>>>> LeanBranch
 
 ///FUNCIONES DE ARCHIVO
 
 void cargarArchivoPacientes();
 
+<<<<<<< HEAD
 
 nodoPaciente * cargaArbolPacientes(nodoPaciente*arbol, char archivoIngresos[], char archivoPracticas[])
 {
@@ -296,3 +354,23 @@ nodoPaciente * cargaArbolPacientes(nodoPaciente*arbol, char archivoIngresos[], c
     fclose(archi);
     return arbol;
 }
+=======
+nodoPaciente* cargarArchivosEstructuras(nodoPaciente* arbolPacientes)
+{
+    FILE*archiPaciente=fopen(ARCHIVOPACIENTES,"rb");
+    if(archiPaciente!=NULL)
+    {
+        stPaciente paciente;
+        while(fread(&paciente,sizeof(stPaciente),1,archiPaciente)>0)
+        {
+            arbolPacientes=agregaPaciente(arbolPacientes,paciente);
+            nodoPaciente*buscado=buscaPaciente(arbolPacientes,paciente.DNI);
+            buscado->listaIngresos=cargaLista(paciente.DNI);
+            buscado->listaIngresos->practicas=cargaListaPracticas(arbolPacientes->listaIngresos->practicas)
+        }
+    }
+    return arbolPacientes;
+}
+
+
+>>>>>>> LeanBranch

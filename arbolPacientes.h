@@ -41,11 +41,9 @@ void muestraArbol();
 void muestraPaciente();
 
 ///FUNCIONES DE ARCHIVO
-
+nodoPaciente * cargarArchivosEstructuras(char archivoPacientes[],char  archivoPracticasxIngreso[],char  archivoIngresos[],char  arbolPacientes[]);
 void cargarArchivoPacientes();
 nodoPaciente * cargaArbolPacientes();
-
-
 
 
 

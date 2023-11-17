@@ -5,7 +5,7 @@ typedef struct stFecha
 {
     int dia;
     int mes;
-    int año;
+    int anio;
 }stFecha;
 
 typedef struct stIngresos

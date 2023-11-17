@@ -5,12 +5,16 @@
 #include "login.h"
 #include "practicas.h"
 #include "empleados.h"
+#define ARCHIVOPACIENTES "archivoPacientes.bin"
+#define ARCHIVOPRACTICASXINGRESO "archivoPracticasXingreso.bin"
+#define ARCHIVOINGRESOS "archivoIngresos.bin"
 
-void menuPrincipal(){
+void menuPrincipal()
+{
 
     int opcion;
 
-    arbolPacientes* arbolPacientes = inicArbol();
+    nodoPaciente* arbolPacientes = inicArbol();
     arbolPacientes = cargarArchivosEstructuras(archivoPacientes, archivoPracticasxIngreso, archivoIngresos, arbolPacientes);
     ///funcion que llama a las 3 funciones de lectura archivo
 

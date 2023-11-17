@@ -20,8 +20,8 @@ void mostrarPracticas(char archivo [])
         perror("Error al abrir el archivo");
         return 1;
     }
-    Practicas registro;
-    while (fread(&registro, sizeof(Practicas), 1, archivoPracticas) > 0) {
+    stPracticas registro;
+    while (fread(&registro, sizeof(stPracticas), 1, archivoPracticas) > 0) {
         mostrarPractica(registro);
     }
     fclose(archivoPracticas);
@@ -31,7 +31,7 @@ void mostrarPracticas(char archivo [])
 //Modificacion_de_practica: solo su nombre
 void modificacionPractica(char archivo[])
 {
-    Practicas modPractica;
+    stPracticas modPractica;
     int flag = 0;
     char control = 0;
     FILE* archivoPracticas = fopen(archivo, "r+b");
@@ -43,7 +43,7 @@ void modificacionPractica(char archivo[])
 
             if (flag) {
                 fseek(archivoPracticas, 0, SEEK_SET);
-                while (fread(&modPractica, sizeof(Practicas), 1, archivoPracticas) > 0) {
+                while (fread(&modPractica, sizeof(stPracticas), 1, archivoPracticas) > 0) {
                     if (modPractica.nroPractica == flag) {
                         printf("Registro encontrado:\n");
                         mostrarPractica(modPractica);
@@ -62,8 +62,8 @@ void modificacionPractica(char archivo[])
                         printf("Ingrese el nuevo Nombre: ");
                         fflush(stdin);
                         gets(modPractica.nPractica);
-                        fseek(archivoPracticas, (-1) * sizeof(Practicas), SEEK_CUR);
-                        fwrite(&modPractica, sizeof(Practicas), 1, archivoPracticas);
+                        fseek(archivoPracticas, (-1) * sizeof(stPracticas), SEEK_CUR);
+                        fwrite(&modPractica, sizeof(stPracticas), 1, archivoPracticas);
                         printf("Práctica modificada!\n");
                         mostrarPractica(modPractica);
                         sleep(3);
@@ -87,8 +87,8 @@ int buscarporNombrePracticas(char archivo [])
 {
     system("cls");
     FILE* archivoPracticas = fopen(archivo, "rb");
-    Practicas practicaBuscada;
-    Practicas arreglo[DIM];
+    stPracticas practicaBuscada;
+    stPracticas arreglo[DIM];
     int i = 0;
     int flag = 0;
 
@@ -113,7 +113,7 @@ int buscarporNombrePracticas(char archivo [])
     return flag;
 }
 
-void mostrarPractica(Practicas practica)
+void mostrarPractica(stPracticas practica)
 {
     printf("Práctica: %s\n", practica.nPractica);
     printf("ID: %i\n", practica.nroPractica);
@@ -128,7 +128,7 @@ void mostrarPractica(Practicas practica)
 
 void baja_alta_practica(char archivo[])
 {
-    Practicas modPractica;
+    stPracticas modPractica;
     int flag = 0;
     char control = 0;
     FILE* archivoPracticas = fopen(archivo, "r+b");
@@ -139,7 +139,7 @@ void baja_alta_practica(char archivo[])
 
             if (flag) {
                 fseek(archivoPracticas, 0, SEEK_SET);
-                while (fread(&modPractica, sizeof(Practicas), 1, archivoPracticas) > 0) {
+                while (fread(&modPractica, sizeof(stPracticas), 1, archivoPracticas) > 0) {
                     if (modPractica.nroPractica == flag) {
                         printf("Registro encontrado:\n");
                         mostrarPractica(modPractica);
@@ -156,8 +156,8 @@ void baja_alta_practica(char archivo[])
                     case '1':
                         system("cls");
                         modPractica.eliminado = 1;
-                        fseek(archivoPracticas, (-1) * sizeof(Practicas), SEEK_CUR);
-                        fwrite(&modPractica, sizeof(Practicas), 1, archivoPracticas);
+                        fseek(archivoPracticas, (-1) * sizeof(stPracticas), SEEK_CUR);
+                        fwrite(&modPractica, sizeof(stPracticas), 1, archivoPracticas);
                         printf("Práctica modificada!\n");
                         mostrarPractica(modPractica);
                         sleep(3);
@@ -168,8 +168,8 @@ void baja_alta_practica(char archivo[])
                         //verificarExistencia(modPractica);
                         //VEREFICAR SI LA PRACTICA EXISTE EN ALGUN INGRESO, DE SER ASI, LA MISMA NO PODRA SER DADA DE BAJA
                         modPractica.eliminado = 0;
-                        fseek(archivoPracticas, (-1) * sizeof(Practicas), SEEK_CUR);
-                        fwrite(&modPractica, sizeof(Practicas), 1, archivoPracticas);
+                        fseek(archivoPracticas, (-1) * sizeof(stPracticas), SEEK_CUR);
+                        fwrite(&modPractica, sizeof(stPracticas), 1, archivoPracticas);
                         printf("Práctica modificada!\n");
                         mostrarPractica(modPractica);
                         sleep(3);
