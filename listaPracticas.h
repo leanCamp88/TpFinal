@@ -1,28 +1,31 @@
 #ifndef LISTAPRACTICAS_H_INCLUDED
 #define LISTAPRACTICAS_H_INCLUDED
 
+#include "menus.h"
+#include "arbolPacientes.h"
+#include "listaIngresos.h"
+#include "listaPracticas.h"
+#include "login.h"
+#include "practicas.h"
+#include "empleados.h"
+#include "fecha.h"
+#include "time.h"
+#include <ctype.h>
+extern int CANT_PRACTICAS;
 
-typedef struct stPracticas
+
+typedef struct stPracxIngreso
 {
-    int NroPractica;
-    char nombreDePractica[30];
-    int Eliminado;
-
-}stPracticas;
-
-typedef struct stPracticaxIngreso
-{
-    int nroPractica;
-    char nombreDePractica[30];
     int nroIngreso;
-    char resultado[100];
+    int NroPractica;
+    char Resultado[40];
 
-}stPracticaxIngreso;
+}stPracxIngreso;
 
 typedef struct nodoPracticas
 {
-    stPracticaxIngreso practicasxIngreso;
-    struct  nodoPracticas *siguiente;
+    stPracxIngreso practica;
+    struct nodoPracticas *siguiente;
 
 }nodoPracticas;
 
@@ -30,17 +33,18 @@ typedef struct nodoPracticas
 
 ///FUNCIONES BASICAS
 nodoPracticas* inicListaPractica(); //1
-nodoPracticas* creaNodoPractica(stPracticas dato); //2
-nodoPracticas * agregoFinalListaPractica(nodoPracticas* listaPracticas, stPracticas  nuevo);//3
-void muestraUnaPractica(nodoPracticas * practica); //4
-stPracticas cargaUnaPractica(); // 5
+nodoPracticas* creaNodoPractica(stPracxIngreso dato); //2
+nodoPracticas* agregoFinalListaPractica(nodoPracticas* lista, stPracxIngreso nuevo);//3
+void muestraUnaPracticaIngreso(stPracxIngreso  practica); //4
+nodoPracticas * cargaPracticas(int idIngreso,nodoPracticas * listaPracticas,stPractica* practicas,int validos);//5
 void muestraListaPracticas(nodoPracticas* listaPractica); //6
-nodoPracticas* buscaUltimoNodoPractica(nodoPracticas* listaPracticas); //7
-nodoPracticas * borrarListaPracticas(nodoIngresos * listaIngresos); //8
-nodoPracticas* buscarNodoPractica(nodoPracticas* listaPracticas, int id); // 9
+nodoPracticas * buscaUltimoNodoPractica(nodoPracticas* listaPracticas); //7
+nodoPracticas * borrarListaPracticas(nodoPracticas * listaIngresos); //8
+
+
 ///FUNCIONES DE ARCHIVOS
-nodoIngresos * cargaListaIngresos (char nombreArchivo[],  nodoPracticas * listaPracticas, int idIngreso);// 10
-void cargaArchivoPractica(nodoPracticas * listaPracticas, char nombreArchivoPracticas[]); //11
+nodoPracticas * cargaListaPracticas (nodoPracticas * listaPracticas, int idIngreso);// 11
+void cargaArchivoPractica(nodoPracticas * listaPracticas, char nombreArchivoPracticas[]); //12
 
 
 

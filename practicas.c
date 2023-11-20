@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <conio.h>
+#include "unistd.h"
 
 #include "menus.h"
 #include "arbolPacientes.h"
@@ -8,188 +9,303 @@
 #include "listaPracticas.h"
 #include "login.h"
 #include "practicas.h"
-#include "empleados.h"
+#include "practicas.h"
+#include "time.h"
 
 #define DIM 10
 #define ESC 27
 
-void mostrarPracticas(char archivo [])
+extern int CANT_PRACTICAS;
+
+
+void levantarSistema()
 {
-    FILE *archivoPracticas = fopen(archivo, "rb");
-    if (archivoPracticas == NULL) {
-        perror("Error al abrir el archivo");
-        return 1;
-    }
-    stPracticas registro;
-    while (fread(&registro, sizeof(stPracticas), 1, archivoPracticas) > 0) {
-        mostrarPractica(registro);
-    }
-    fclose(archivoPracticas);
+    ///arreglo practicas
+    //int capacidad = 650;
+    int validos = 0;
+    ///stPractica *practicas = (stPractica*)malloc(sizeof(stPractica) * capacidad);
+    //levantarArchivoArreglosPracticas(practicas,&capacidad,&validos);
+
+    ///Arbol
+    //nodoPaciente* arbolGeneral;
+
+
+
+
+
+    ///menuPrincipal();
+
+
+
+    //guardarCambiosArregloPracticas(practicas,validos);
+
 
 }
 
-//Modificacion_de_practica: solo su nombre
-void modificacionPractica(char archivo[])
+
+
+int comparar(const void *a, const void *b)
 {
-    stPracticas modPractica;
-    int flag = 0;
-    char control = 0;
-    FILE* archivoPracticas = fopen(archivo, "r+b");
+    return (*(int*)a - *(int*)b);
+}
 
-    if (archivoPracticas) {
-        while (control != ESC) {
-            system("cls");
-            flag = buscarporNombrePracticas(archivo);
+void levantarArchivoArreglosPracticas(stPractica* practicas,int* capacidad,int* validos)
+{
+    FILE *archivo = fopen("Practicas.dat","rb");
 
-            if (flag) {
-                fseek(archivoPracticas, 0, SEEK_SET);
-                while (fread(&modPractica, sizeof(stPracticas), 1, archivoPracticas) > 0) {
-                    if (modPractica.nroPractica == flag) {
-                        printf("Registro encontrado:\n");
-                        mostrarPractica(modPractica);
-                        break;
-                    }
+    if(!archivo)
+    {
+        perror("Error al abrir el archivo/n");
+    }
+    else
+    {
+        while(fread(&practicas[*validos], sizeof(stPractica), 1, archivo) == 1)
+        {
+
+            (*validos)++;
+
+            if ((*validos) >= (*capacidad))
+            {
+
+                (*capacidad) *= 2;
+
+                stPractica* nuevoArregloPracticas = (stPractica*) realloc(practicas,sizeof(stPractica)* (*capacidad));
+
+                if (practicas == NULL)
+                {
+                    perror("Error al redimensionarPracticas el arreglo/n");
+
                 }
-                //fseek(archivoPracticas, (-1) * sizeof(modPractica), SEEK_CUR);
-                printf("1. Modificar nombre");
-                int modificacion = 0;
-                fflush(stdin);
-                modificacion = getch();
-                system("cls");
-                switch (modificacion) {
-                    case '1':
-                        system("cls");
-                        printf("Ingrese el nuevo Nombre: ");
-                        fflush(stdin);
-                        gets(modPractica.nPractica);
-                        fseek(archivoPracticas, (-1) * sizeof(stPracticas), SEEK_CUR);
-                        fwrite(&modPractica, sizeof(stPracticas), 1, archivoPracticas);
-                        printf("Práctica modificada!\n");
-                        mostrarPractica(modPractica);
-                        sleep(3);
-                        control = ESC;
-                        break;
-
-                    default:
-                        system("cls");
-                        printf("Error: ingresó una opción inexistente.\n");
-                        printf("Presione ESC para salir, cualquier tecla para continuar...");
-                        control = getch();
-                        break;
+                else
+                {
+                    practicas = nuevoArregloPracticas;
                 }
+
             }
         }
-        fclose(archivoPracticas);
+
+        /// Ordena el array de practicas alfabéticamente
+        qsort(practicas, (*validos), sizeof(stPractica), comparar);
+
+
+
     }
+    fclose(archivo);
+
 }
 
-int buscarporNombrePracticas(char archivo [])
+void guardarCambiosArregloPracticas(stPractica practicas[],int validos)
 {
-    system("cls");
-    FILE* archivoPracticas = fopen(archivo, "rb");
-    stPracticas practicaBuscada;
-    stPracticas arreglo[DIM];
-    int i = 0;
-    int flag = 0;
+    FILE* archi = fopen(ARCHIVOSOLOPRACTICAS,"wb");
 
-    if (archivoPracticas == NULL) {
-        perror("ERROR");
-        return 0;
-    } else {
-        mostrarPracticas(archivo);
-        int opc = 0;
-        while (!flag) {
-            printf("Ingrese el ID de la práctica: ");
-            fflush(stdin);
-            scanf("%i", &opc);
-            if (opc >= 1 && opc <= 10) {
-                flag = opc;
-            } else {
-                perror("");
-            }
+    if(archi)
+    {
+        for(int i = 0;i < validos; i++)
+        {
+            fwrite(&practicas[i],sizeof(stPractica),1,archi);
         }
-        fclose(archivoPracticas);
     }
-    return flag;
+
+    fclose(archi);
 }
 
-void mostrarPractica(stPracticas practica)
+
+void mostrarPracticas(stPractica practicas[],int validos)
 {
-    printf("Práctica: %s\n", practica.nPractica);
+    for(int i = 0; i < validos; i++)
+    {
+        muestraUnaPractica(practicas[i]);
+    }
+}
+
+
+///Modificacion_de_practica: solo su nombre
+
+int verificarID(stPractica practicas[],int validos)
+{
+    printf("Ingresa el ID de la practica: \n");
+
+    int id = 0;
+    scanf("%i",&id);
+
+    char correcto = 0;
+
+    while(correcto != ESC && correcto != 's' && correcto != 'S')
+    {
+        if(id < validos && id > 0)
+        {
+            muestraUnaPractica(practicas[id]);
+
+            printf("Esta es la practica ? S para terminar, ESC para salir o cualquier tecla para continuar ingresando practicas.\n");
+        }
+        else
+        {
+            printf("ID Inexistente, cualquier tecla para ingresar nuevamente o ESC para salir \n");
+        }
+
+
+        correcto = getchar();
+    }
+
+    if(correcto == ESC)
+    {
+        return -1;
+    }
+    else
+    {
+        return id;
+    }
+
+}
+
+
+void modificacionPractica(stPractica practicas[],int validos)
+{
+    mostrarPorNombrePracticas(practicas,validos);
+
+    int id = verificarID(practicas,validos);
+
+    if(id)
+    {
+        printf("Ingrese el nuevo nombre de la practica: \n");
+        gets(practicas[id-1].nombrePractica);
+    }
+
+}
+
+
+void muestraUnaPractica(stPractica practica)
+{
+//    if(practica.eliminado == 0)
+//    {
+        printf("\n*******************\n");
+        printf("Nombre de la practica: %s \n", practica.nombrePractica);
+        printf("NRO practica %i \n", practica.nroPractica);
+//    }
+//    else
+//    {
+//        printf("Practica no disponible actualmente/n");
+//    }
+
+}
+
+
+void mostrarPorNombrePracticas(stPractica practicas[],int validos)
+{
+
+    printf("Ingrese el nombre de la practica a buscar: \n");
+
+    char nombrePractica[30];
+
+    fflush(stdin);
+    gets(nombrePractica);
+
+
+    for(int i = 1; i < validos; i++)
+    {
+        if( strcmpi(nombrePractica,practicas[i].nombrePractica) == 0)
+        {
+            muestraUnaPractica(practicas[i]);
+        }
+    }
+}
+
+void mostrarPractica(stPractica practica)
+{
+    printf("\n-------------------------------------------------------\n");
+    printf("Practica: %s\n", practica.nombrePractica);
     printf("ID: %i\n", practica.nroPractica);
-    if (practica.eliminado == 0) {
+    if (practica.eliminado == 0)
+    {
         printf("Estado: Activa\n");
-    } else {
+    }
+    else
+    {
         printf("Estado: Inactiva\n");
     }
 }
-    /**Alta_de_practica - Baja_de_practica: solo si no fue incluida
-    en ningún ingreso*/
+//Alta_de_practica - Baja_de_practica: solo si no fue incluida
+// en ningún ingreso
 
-void baja_alta_practica(char archivo[])
+void cambiarEstadoPractica(stPractica* practicas,int validos)
 {
-    stPracticas modPractica;
-    int flag = 0;
-    char control = 0;
-    FILE* archivoPracticas = fopen(archivo, "r+b");
-    if (archivoPracticas) {
-        while (control != ESC) {
-            system("cls");
-            flag = buscarporNombrePracticas(archivo);
+    mostrarPorNombrePracticas(practicas,validos);
 
-            if (flag) {
-                fseek(archivoPracticas, 0, SEEK_SET);
-                while (fread(&modPractica, sizeof(stPracticas), 1, archivoPracticas) > 0) {
-                    if (modPractica.nroPractica == flag) {
-                        printf("Registro encontrado:\n");
-                        mostrarPractica(modPractica);
-                        break;
-                    }
-                }
-                printf("1. Dar alta");
-                printf("2. Dar baja");
-                int modificacion = 0;
-                fflush(stdin);
-                modificacion = getch();
-                system("cls");
-                switch (modificacion) {
-                    case '1':
-                        system("cls");
-                        modPractica.eliminado = 1;
-                        fseek(archivoPracticas, (-1) * sizeof(stPracticas), SEEK_CUR);
-                        fwrite(&modPractica, sizeof(stPracticas), 1, archivoPracticas);
-                        printf("Práctica modificada!\n");
-                        mostrarPractica(modPractica);
-                        sleep(3);
-                        control = ESC;
-                        break;
-                    case '2':
-                        system("cls");
-                        //verificarExistencia(modPractica);
-                        //VEREFICAR SI LA PRACTICA EXISTE EN ALGUN INGRESO, DE SER ASI, LA MISMA NO PODRA SER DADA DE BAJA
-                        modPractica.eliminado = 0;
-                        fseek(archivoPracticas, (-1) * sizeof(stPracticas), SEEK_CUR);
-                        fwrite(&modPractica, sizeof(stPracticas), 1, archivoPracticas);
-                        printf("Práctica modificada!\n");
-                        mostrarPractica(modPractica);
-                        sleep(3);
-                        control = ESC;
-                        break;
+    int id = verificarID(practicas,validos);
 
-                    default:
-                        system("cls");
-                        printf("Error: ingresó una opción inexistente.\n");
-                        printf("Presione ESC para salir, cualquier tecla para continuar...");
-                        control = getch();
-                        break;
-                }
+    if(practicas[id-1].eliminado == 0)
+    {
+        practicas[id-1].eliminado = 1;
+    }
+    else
+    {
+        practicas[id-1].eliminado = 0;
+    }
+}
+
+
+
+
+
+/// SE USAN ????
+
+
+void mostrarPracticaPorNumero(int nmroPractica)
+{
+    FILE* archivoPracticas = fopen(ARCHIVOSOLOPRACTICAS,"ab");
+
+    stPractica aux;
+
+    if(!archivoPracticas)
+    {
+        perror("");
+    }
+    else
+    {
+        while(fread(&aux, sizeof(stPractica),1,archivoPracticas)>0)
+        {
+            if(aux.nroPractica == nmroPractica)
+            {
+                mostrarPractica(aux);
             }
         }
     }
     fclose(archivoPracticas);
 }
 
-/**Listado de practicas que “comiencen con”. En este caso debe poder filtrar todas las
-practicas cuyo nombre comiencen con lo seleccionado por el usuario. Ejemplo: si se
-elige la combinación “he”, deberían mostrarse practicas como: “hemograma o
-hepatograma” etc.*/
+
+stPractica devuelvePractica(int nroPractica)
+{
+    system("cls");
+
+    FILE* archivoPracticas = fopen(ARCHIVOSOLOPRACTICAS, "rb");
+
+    stPractica aux;
+
+    ///RETORNA EL NUMERO DE PRACTRICA EN -1 SI HAY UN ERROR
+    if (archivoPracticas == NULL)
+    {
+        perror("ERROR");
+        aux.nroPractica = -1;
+        return aux;
+    }
+    else
+    {
+        while(fread(&aux,sizeof(stPractica),1,archivoPracticas) > 0)
+        {
+            if(aux.nroPractica == nroPractica)
+            {
+                return aux;
+            }
+        }
+    }
+
+    fclose(archivoPracticas);
+
+    ///SI NO ENCUENTRA RETORNA NRO DE PRACTICA EN -1
+    aux.nroPractica = -1;
+
+    return aux;
+
+}
+

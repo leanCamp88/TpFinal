@@ -2,7 +2,7 @@
 <CodeBlocks_project_file>
 	<FileVersion major="1" minor="6" />
 	<Project>
-		<Option title="tpfinalLaboratorioLUCRE" />
+		<Option title="Version20.07.35" />
 		<Option pch_mode="2" />
 		<Option compiler="gcc" />
 		<Build>
@@ -35,10 +35,10 @@
 			<Option compilerVar="CC" />
 		</Unit>
 		<Unit filename="arbolPacientes.h" />
-		<Unit filename="empleados.c">
+		<Unit filename="fecha.c">
 			<Option compilerVar="CC" />
 		</Unit>
-		<Unit filename="empleados.h" />
+		<Unit filename="fecha.h" />
 		<Unit filename="listaIngresos.c">
 			<Option compilerVar="CC" />
 		</Unit>
@@ -64,6 +64,9 @@
 		<Unit filename="practicas.h" />
 		<Extensions>
 			<lib_finder disable_auto="1" />
+			<code_completion />
+			<envvars />
+			<debugger />
 		</Extensions>
 	</Project>
 </CodeBlocks_project_file>
