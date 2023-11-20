@@ -5,8 +5,13 @@
 #include "login.h"
 #include "practicas.h"
 #include "empleados.h"
+#include "fecha.h"
+#include "time.h"
 #include <stdio.h>
 #include <stdlib.h>
+
+extern int IDGLOBAL;
+
 
 ///FUNCIONES BASICAS
 
@@ -26,7 +31,7 @@
 
         nodoNuevo->dato = dato;
         nodoNuevo->siguiente = NULL;
-        nodoNuevo->practicas = inicLista(); //inicializo la cabecera de la lista enlazada de practicas
+        nodoNuevo->practicas = inicListaPractica(); //inicializo la cabecera de la lista enlazada de practicas
 
         return nodoNuevo;
     }
@@ -43,7 +48,9 @@
 nodoIngresos* agregoFinalListaIngresos(nodoIngresos* listaIngresos, stIngresos nuevo)
 {
     nodoIngresos* ultimo;
-    nodoIngresos * nuevoNodo;
+
+    nodoIngresos* nuevoNodo;
+
     nuevoNodo = crearNodo(nuevo);
 
     if(listaIngresos == NULL)
@@ -59,10 +66,28 @@ nodoIngresos* agregoFinalListaIngresos(nodoIngresos* listaIngresos, stIngresos n
     return listaIngresos;
 }
 
+//
+//nodoIngresos* agregoFinalListaIngresos(nodoIngresos* listaIngresos, stIngresos nuevo)
+//{
+//    nodoIngresos* ultimo = buscaUltimoNodoIngresos(listaIngresos);
+//
+//    if(ultimo)
+//    {
+//        ultimo->siguiente = crearNodo(nuevo);
+//    }
+//    else
+//    {
+//        ultimo = crearNodo(nuevo);
+//    }
+//
+//    return listaIngresos;
+//}
+//
+
 //5 Muestra lista
 
-    void muestraListaIngresos(nodoIngresos* listaIngresos)
-    {
+void muestraListaIngresos(nodoIngresos* listaIngresos)
+{
         nodoIngresos* aux = listaIngresos;
 
         while(aux != NULL)
@@ -71,13 +96,26 @@ nodoIngresos* agregoFinalListaIngresos(nodoIngresos* listaIngresos, stIngresos n
             aux = aux->siguiente;
         }
 
-    }
+}
 
-//6 Busca ultimo nodo
+void mostrarIngresoPaciente(nodoPaciente* arbolGeneral)
+{
+    int dato=0;
 
-    nodoIngresos* buscaUltimoNodoIngresos(nodoIngresos* listaIngresos)
-    {
-        nodoIngresos* aux = listaIngresos;
+    printf("\nIngrese DNI del paciente\n");
+    scanf("%d", &dato);
+
+    nodoPaciente * buscado = buscaPaciente(arbolGeneral,dato);
+
+    muestraListaIngresos(buscado->listaIngresos);
+
+}
+
+//6 ç ultimo nodo
+
+nodoIngresos* buscaUltimoNodoIngresos(nodoIngresos* listaIngresos)
+{
+    nodoIngresos* aux = listaIngresos;
 
         if(aux != NULL)
         {
@@ -87,15 +125,15 @@ nodoIngresos* agregoFinalListaIngresos(nodoIngresos* listaIngresos, stIngresos n
             }
         }
 
-        return aux;
-    }
+    return aux;
+}
 
 
 //7 Borrar lista
 
-nodoIngresos* borraLista(nodoIngresos* listaIngresos)
+nodoIngresos * borraLista(nodoIngresos * listaIngresos)
 {
-    nodoIngresos* aux;
+    nodoIngresos * aux;
 
     while(listaIngresos != NULL)
     {
@@ -109,9 +147,93 @@ nodoIngresos* borraLista(nodoIngresos* listaIngresos)
 
 //8 Busca un ingreso
 
+///FALTA FILTRAR POR FECHA EN VEZ DE POR NUMERO DE INGRESO
+void muestraIngresoPorFecha(nodoPaciente*arbolGeneral)
+{
+    stFecha desde;
+    stFecha hasta;
+
+    int dni=0;
+      printf("\nIngrese DNI del paciente: \n");
+    scanf("%d", &dni);
+    nodoPaciente * buscado = buscaPaciente(arbolGeneral,dni);
+
+    printf("\nIngrese Fecha porfavor\n");
+    printf("\nDesde:");
+    desde=cargarFecha();
+    printf("\nHasta:");
+    hasta=cargarFecha();
+
+    while(arbolGeneral->listaIngresos->dato.fechaIngreso.anio>desde.anio&&arbolGeneral->listaIngresos->dato.fechaIngreso.anio<hasta.anio)
+    {
+        while(arbolGeneral->listaIngresos->dato.fechaIngreso.mes>desde.mes&&arbolGeneral->listaIngresos->dato.fechaIngreso.mes<hasta.mes)
+        {
+            while(arbolGeneral->listaIngresos->dato.fechaIngreso.dia>desde.dia&&arbolGeneral->listaIngresos->dato.fechaIngreso.dia<hasta.dia)
+            {
+
+                muestraIngreso(arbolGeneral->listaIngresos->dato);
+            }
+        }
+    }
+
+}
+///Validacion de fecha, devuelve un ingreso de la fecha estimada
+nodoIngresos*validacionFecha(stIngresos ingreso, nodoPaciente*buscado)
+{
+    nodoIngresos*aux=buscado->listaIngresos;
+
+    while(aux!=NULL)
+    {
+        if(ingreso.fechaIngreso.anio=aux->dato.fechaIngreso.anio)
+        {
+            if(ingreso.fechaIngreso.mes=aux->dato.fechaIngreso.mes)
+            {
+                if(ingreso.fechaIngreso.dia=aux->dato.fechaIngreso.dia)
+                {
+                    return aux;
+                }
+            }
+        }
+        aux=aux->siguiente;
+    }
+    return aux;
+}
+
+void muestraIngresoPorDni(nodoPaciente* arbolGeneral)
+{
+    int dni = 0;
+    int nro = 0;
+
+    printf("\nIngrese DNI del paciente: \n");
+    scanf("%d", &dni);
+
+    nodoPaciente * buscado = buscaPaciente(arbolGeneral,dni);
+
+    printf("\nIngrese Nro de Ingreso: \n");
+    scanf("%d",&nro);
+
+    nodoIngresos * buscando = buscaIngreso(buscado->listaIngresos,nro);
+
+    muestraIngreso(buscado->listaIngresos->dato);
+
+}
+
+
+
 nodoIngresos * buscaIngreso(nodoIngresos * listaIngresos, int idIngreso)
 {
+    while(listaIngresos)
+    {
 
+        if(listaIngresos->dato.nroIngreso == idIngreso)
+        {
+            return listaIngresos;
+        }
+
+        listaIngresos = listaIngresos->siguiente;
+    }
+
+    return listaIngresos;
 }
 
 
@@ -119,25 +241,32 @@ nodoIngresos * buscaIngreso(nodoIngresos * listaIngresos, int idIngreso)
 
 //9 Lee el archivo y carga la lista (filtra por el dni)
 
-nodoIngresos * cargaLista (int dni)
+///Levanta la lista de ingresos y la lista de practicas desde sus archivos
+
+nodoIngresos * cargarListaIngresosArchivo(int dni)
 {
     FILE * arch = fopen(ARCHIVOINGRESOS, "rb");
-    stIngresos ingresoPaciente;
-    nodoIngresos * listaPaciente = inicLista();
 
-    if(arch != NULL)
+    stIngresos ingreso;
+
+    nodoIngresos * ingresosPaciente = inicLista();
+
+    if(arch)
     {
-        while(fread(&ingresoPaciente,sizeof(stIngresos),1,arch)>0) //borrar los datos?
+        while( fread(&ingreso,sizeof(stIngresos),1,arch) > 0) //borrar los datos?
         {
-            if(ingresoPaciente.dni == dni)
+            if(ingreso.dni == dni)
             {
-                listaPaciente = agregoFinalListaIngresos(listaPaciente,ingresoPaciente);
+                ingresosPaciente = agregoFinalListaIngresos(ingresosPaciente,ingreso);
+
+                ingresosPaciente->practicas = cargaListaPracticas(ingresosPaciente->practicas,ingreso.nroIngreso);
             }
         }
     }
 
     fclose(arch);
-    return listaPaciente;
+
+    return ingresosPaciente;
 
 }
 
@@ -150,8 +279,11 @@ void cargarArchivo (nodoIngresos * listaPaciente, char nombreArchivo) //funcion 
     while(listaPaciente != NULL)
     {
         stIngresos paciente = listaPaciente->dato;
+
         fwrite(&paciente,sizeof(stIngresos),1,arch);
-        // cargarArchvo (listaPaciente->practicas); //carga la lista de practicas anexada a cada nodo
+
+        // cargarArchivo (listaPaciente->practicas); //carga la lista de practicas anexada a cada nodo
+
         listaPaciente = listaPaciente->siguiente;
     }
 
@@ -162,23 +294,38 @@ void cargarArchivo (nodoIngresos * listaPaciente, char nombreArchivo) //funcion 
 
 //11 Funcion que cargar la estructura de ingreso
 
-stIngresos cargaIngreso(nodoIngresos * listaIngresos)
+stIngresos cargaIngreso(int dni)
 {
     stIngresos ingreso;
-    nodoIngresos * ultimo = buscaUltimoNodoIngresos(listaIngresos);
 
-    ingreso.nroIngreso = ultimo->dato.nroIngreso+1;
-    printf("Ingrese la fecha de INGRESO dia/mes/anio \n");
-    getch(ingreso.fechaIngreso);
-    printf("Ingrese la fecha de RETIRO dia/mes/anio \n");
-    getch(ingreso.fechaRetiro);
-    printf("Ingrese el dni del paciente");
-    scanf("%i", &ingreso.dni);
-    printf("Ingrese su matricula \n");
-    scanf("%i", &ingreso.matriculaProfesional);
+    IDGLOBAL++;
 
-    ingreso.eliminado = 0;
+    ingreso.nroIngreso = IDGLOBAL;
 
+    ingreso.dni = dni;
+
+    printf("Ingrese matricula del solicitante \n");
+
+    scanf("%i",&ingreso.matriculaProfesional);
+    printf("Ingrese Dia: /n");
+//    int fecha;
+//    fflush(stdin);
+//    scanf("%i",&fecha);
+//    ingreso.fechaIngreso.dia = fecha;
+//    printf("Ingrese mes: /n");
+//    fflush(stdin);
+//    scanf("%i",&fecha);
+//    ingreso.fechaIngreso.mes = fecha;
+//    printf("Ingrese anio: /n");
+//    fflush(stdin);
+//    scanf("%i",&fecha);
+//    ingreso.fechaIngreso.anio = fecha;
+
+    ingreso.fechaIngreso = obtenerFechaActual(); //por defecto la actual
+
+    ingreso.fechaRetiro = ingresarFecha();
+
+    ingreso.eliminado = 0; //por defecto activa
 
     return ingreso;
 }
@@ -195,3 +342,64 @@ void muestraIngreso(stIngresos ingreso)
     printf("----------------------------------\n");
 }
 
+// 13 Busqueda de idIngresos mayor
+
+int buscaIdIngresoMayor()
+{
+    FILE * arch = fopen(ARCHIVOINGRESOS, "rb");
+
+    int max = 0;
+
+    if(arch)
+    {
+        stIngresos ingreso;
+
+        while(fread(&ingreso,sizeof(stIngresos),1,arch) > 0)
+        {
+            if(ingreso.nroIngreso > max)
+                {
+                    max = ingreso.nroIngreso;
+                }
+        }
+    }
+
+    fclose(arch);
+
+    return max;
+}
+
+
+// 14 Alta ingresos
+
+nodoPaciente * altaIngresos(nodoPaciente * arbol,stPractica *practicas,int validos) //
+{
+    int dni = obtenerDNI();
+
+
+
+    nodoPaciente * buscado = buscaPaciente(arbol, dni);
+
+    if(!buscado)
+    {
+        printf("El paciente no se encuentra en Sistema \n");
+
+        stPaciente nuevo = cargaPaciente(dni);
+
+        arbol = agregaPaciente(arbol,nuevo);
+
+        buscado = buscaPaciente(arbol,dni);
+    }
+
+    ///carga el nuevo stIngreso
+    stIngresos nuevoIngreso = cargaIngreso(dni); //hasta aca llega joya
+    ///Lo agrega al final de la lista de ingresos
+    buscado->listaIngresos = agregoFinalListaIngresos(buscado->listaIngresos,nuevoIngreso);
+
+    ///busca la cabecera al ingreso de practicas
+    nodoIngresos * nodoIngresoBuscado = buscaIngreso(buscado->listaIngresos,nuevoIngreso.nroIngreso);
+
+    nodoIngresoBuscado->practicas = cargaPracticas(nuevoIngreso.nroIngreso,nodoIngresoBuscado->practicas,practicas,validos);
+
+
+    return arbol;
+}

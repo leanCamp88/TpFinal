@@ -1,12 +1,18 @@
 #ifndef LISTAINGRESOS_H_INCLUDED
 #define LISTAINGRESOS_H_INCLUDED
+#include "fecha.h"
+#include "menus.h"
+#include "arbolPacientes.h"
+#include "listaIngresos.h"
+#include "listaPracticas.h"
+#include "login.h"
+#include "practicas.h"
+#include "empleados.h"
+#include "fecha.h"
+#include "time.h"
+#include <ctype.h>
+extern int CANT_PRACTICAS;
 
-typedef struct stFecha
-{
-    int dia;
-    int mes;
-    int anio;
-}stFecha;
 
 typedef struct stIngresos
 {
@@ -29,6 +35,9 @@ typedef struct nodoIngresos
 }nodoIngresos;
 
 ///FUNCIONES BASICAS
+
+
+
 //1 Inicializa la lista
 nodoIngresos * inicLista();
 //2 Funcion que crea un nuevo nodo Ingreso
@@ -44,19 +53,25 @@ nodoIngresos* buscaUltimoNodoIngresos(nodoIngresos* listaIngresos);
 //7 Borrar lista
 nodoIngresos* borraLista(nodoIngresos* listaIngresos);
 //8 Busca un ingreso
-nodoIngresos * buscaIngreso(nodoIngresos * listaIngresos, int idIngreso); ///FALTA
+
+nodoIngresos * buscaIngreso(nodoIngresos * listaIngresos,int idIngreso); ///FALTA
 
 ///FUNCIONES DE ARCHIVOS
 //9 Lee el archivo y carga la lista (filtra por el dni)
-nodoIngresos * cargaLista (char nombreArchivo[], int dni);
+nodoIngresos * cargaListaenArchivo (int dni);
 //10 Carga el archivo con los datos de la lista recibida por paremetro
 void cargarArchivo (nodoIngresos * listaPaciente, char nombreArchivo); ///falta modificacion enlace con funcion de practicas
 
+nodoIngresos * cargarListaIngresosArchivo(int dni);
+
+
 /// FUNCIONES DE LA ESTRUCTURA INGRESOS
 //11 Funcion que cargar la estructura de ingreso
-stIngresos cargaIngreso(nodoIngresos * listaIngresos); //falta enlace con variable global
+stIngresos cargaIngreso(int dni); //falta enlace con variable global
 //12 Funcion que muestra estructura ingreso completa
 void muestraIngreso(stIngresos ingreso);
+//13 Busqueda de idIngresos mayor
+int buscaIdIngresoMayor();
 
 
 ///FALTA!!
@@ -72,6 +87,7 @@ prácticas y resultados obtenidos.
     (funcion ALTA PACIENTE Y BUSQUEDA PACIENTE)
  y debe incluir al menos 1 practica de laboratorio
     (funcion de alta practica con while de cuantas practicas) solo las disponibles*/
+
 
 ///Modificación_de_ingreso:
 /*solo pueden modificarse las fechas y matricula del solicitante*/
